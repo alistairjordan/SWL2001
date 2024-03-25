@@ -55,7 +55,10 @@
 #include "smtc_hal_gpio.h"
 #include "smtc_hal_watchdog.h"
 
-#if defined( SX128X )
+#if defined( SX127X )
+#include "ralf_sx127x.h"
+#include "sx127x.h"
+#elif defined( SX128X )
 #include "ralf_sx128x.h"
 #elif defined( SX126X )
 #include "ralf_sx126x.h"
@@ -126,6 +129,9 @@ const ralf_t modem_radio = RALF_SX128X_INSTANTIATE( NULL );
 const ralf_t modem_radio = RALF_SX126X_INSTANTIATE( NULL );
 #elif defined( LR11XX )
 const ralf_t modem_radio = RALF_LR11XX_INSTANTIATE( NULL );
+#elif defined( SX127X )
+static sx127x_t sx127x;
+const ralf_t modem_radio = RALF_SX127X_INSTANTIATE( &sx127x );
 #else
 #error "Please select radio board.."
 #endif

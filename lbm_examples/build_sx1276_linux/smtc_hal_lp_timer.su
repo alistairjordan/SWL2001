@@ -1,0 +1,7 @@
+smtc_hal_lp_timer.c:87:6:hal_lp_timer_init	0	static
+smtc_hal_lp_timer.c:93:5:msleep	24	static
+smtc_hal_lp_timer.c:115:7:hal_lp_timer_start_thread	8	static
+smtc_hal_lp_timer.c:124:6:hal_lp_timer_start	24	static
+smtc_hal_lp_timer.c:136:6:hal_lp_timer_stop	0	static
+smtc_hal_lp_timer.c:149:6:hal_lp_timer_irq_enable	0	static
+smtc_hal_lp_timer.c:154:6:hal_lp_timer_irq_disable	0	static

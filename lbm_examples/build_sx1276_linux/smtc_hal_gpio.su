@@ -1,0 +1,11 @@
+smtc_hal_gpio.c:116:7:irq_handler	88	static
+smtc_hal_gpio.c:152:6:hal_gpio_init_in	128	static
+smtc_hal_gpio.c:239:6:hal_gpio_init_out	72	static
+smtc_hal_gpio.c:269:6:hal_gpio_irq_attach	0	static
+smtc_hal_gpio.c:280:6:hal_gpio_irq_deatach	0	static
+smtc_hal_gpio.c:292:6:hal_gpio_irq_enable	0	static
+smtc_hal_gpio.c:303:6:hal_gpio_irq_disable	0	static
+smtc_hal_gpio.c:318:6:hal_gpio_set_value	72	static
+smtc_hal_gpio.c:339:10:hal_gpio_get_value	64	static
+smtc_hal_gpio.c:357:6:hal_gpio_clear_pending_irq	0	static
+smtc_hal_gpio.c:391:6:hal_gpio_enable_clock	0	static

@@ -52,7 +52,7 @@
 #include "smtc_hal_uart.h"
 #include "smtc_hal_watchdog.h"
 
-#if defined( STM32L073xx )
+#if defined( STM32L073xx ) || defined( LINUX )
 #include "smtc_hal_eeprom.h"
 #endif
 #if defined( STM32L476xx )
@@ -95,7 +95,7 @@
 #define ADDR_FLASH_MODEM_KEY_CONTEXT ADDR_FLASH_PAGE_255
 #endif
 
-#if defined( STM32L073xx )
+#if defined( STM32L073xx ) || defined( LINUX )
 // Data eeprom base address is 0x08080000
 
 #define ADDR_EEPROM_LORAWAN_CONTEXT_OFFSET 0  // in case of multistack the size of the lorawan context shall be extended
@@ -118,9 +118,9 @@
 static hal_gpio_irq_t radio_dio_irq;
 #endif
 
-__attribute__( ( section( ".noinit" ) ) ) static uint8_t          crashlog_buff_noinit[CRASH_LOG_SIZE];
-__attribute__( ( section( ".noinit" ) ) ) static volatile uint8_t crashlog_length_noinit;
-__attribute__( ( section( ".noinit" ) ) ) static volatile bool    crashlog_available_noinit;
+static uint8_t          crashlog_buff_noinit[CRASH_LOG_SIZE];
+static volatile uint8_t crashlog_length_noinit;
+static volatile bool    crashlog_available_noinit;
 
 /*
  * -----------------------------------------------------------------------------
@@ -204,7 +204,7 @@ void smtc_modem_hal_context_restore( const modem_context_type_t ctx_type, uint32
     // the use of hal_flash_read_modify_write is only done in these cases
     switch( ctx_type )
     {
-#if defined( STM32L073xx )
+#if defined( STM32L073xx ) || defined( LINUX )
     case CONTEXT_MODEM:
         hal_eeprom_read_buffer( ADDR_EEPROM_MODEM_CONTEXT_OFFSET, buffer, size );
         break;
@@ -256,7 +256,7 @@ void smtc_modem_hal_context_store( const modem_context_type_t ctx_type, uint32_t
     // the use of hal_flash_read_modify_write is only done in these cases
     switch( ctx_type )
     {
-#if defined( STM32L073xx )
+#if defined( STM32L073xx ) || defined( LINUX )
     case CONTEXT_MODEM:
         hal_eeprom_write_buffer( ADDR_EEPROM_MODEM_CONTEXT_OFFSET, buffer, size );
         break;
@@ -544,7 +544,11 @@ uint16_t smtc_modem_hal_store_and_forward_get_number_of_pages( void )
 
 uint16_t smtc_modem_hal_flash_get_page_size( void )
 {
+#if defined( LINUX )
+    return 512;
+#elif
     return hal_flash_get_page_size( );
+#endif
 }
 #endif
 

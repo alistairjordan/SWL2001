@@ -12,7 +12,7 @@ APPBUILD_ROOT = build
 APPTARGET_ROOT = app
 
 # Target board (NUCLEO_L476 or NUCLEO_L073)
-BOARD ?= NUCLEO_L476
+BOARD ?= LINUX
 
 # Target radio
 TARGET_RADIO ?= nc
@@ -88,4 +88,4 @@ SIZE ?= no
 LOG_MEM ?= yes
 
 # Verbosity
-VERBOSE ?= no
+VERBOSE ?= yes

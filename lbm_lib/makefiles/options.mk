@@ -6,7 +6,7 @@
 RADIO ?= nc
 
 # MCU - Must be provided by user
-MCU_FLAGS =? nc
+#MCU_FLAGS =? nc
 
 # Prefix for all build directories
 BUILD_ROOT = build
@@ -21,7 +21,7 @@ EXTRAFLAGS ?=
 # Optimization
 #-----------------------------------------------------------------------------
 # Compilation optimization
-OPT ?= -Os
+#OPT ?= -Os
 
 #-----------------------------------------------------------------------------
 # Debug

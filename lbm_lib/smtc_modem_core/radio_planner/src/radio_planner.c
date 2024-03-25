@@ -438,7 +438,7 @@ void rp_callback( radio_planner_t* rp )
         ( rp->disable_failsafe != RP_DISABLE_FAILSAFE_KEY ) &&
         ( ( int32_t ) ( rp->tasks[rp->radio_task_id].start_time_ms + 128000 - smtc_modem_hal_get_time_in_ms( ) ) < 0 ) )
     {
-        SMTC_MODEM_HAL_PANIC( "RP_FAILSAFE - #%d\n", rp->radio_task_id );
+        SMTC_MODEM_HAL_PANIC( "RP_FAILSAFE: timediff=%d - #%d\n",( int32_t ) ( rp->tasks[rp->radio_task_id].start_time_ms + 128000 - smtc_modem_hal_get_time_in_ms( ) ), rp->radio_task_id );
     }
     if( ( rp->radio_irq_flag == false ) && ( rp->timer_irq_flag == false ) )
     {

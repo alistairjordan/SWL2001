@@ -1,0 +1,14 @@
+smtc_hal_mcu.c:178:44:hal_mcu_wait_us	16	static
+smtc_hal_mcu.c:189:6:hal_mcu_set_sleep_for_ms	8	static
+smtc_hal_mcu.c:226:6:SysTick_Handler	0	static
+smtc_hal_mcu.c:232:6:HAL_MspInit	0	static
+smtc_hal_mcu.c:249:13:system_clock_config	0	static
+smtc_hal_mcu.c:327:13:mcu_gpio_init	8	static
+smtc_hal_mcu.c:407:13:sleep_handler	0	static
+smtc_hal_mcu.c:493:6:HardFault_Handler	8	static
+smtc_hal_mcu.c:114:6:hal_mcu_critical_section_begin	0	static
+smtc_hal_mcu.c:120:6:hal_mcu_critical_section_end	0	static
+smtc_hal_mcu.c:125:6:hal_mcu_disable_irq	0	static
+smtc_hal_mcu.c:130:6:hal_mcu_enable_irq	0	static
+smtc_hal_mcu.c:172:6:hal_mcu_reset	0	static
+smtc_hal_mcu.c:135:6:hal_mcu_init	8	static

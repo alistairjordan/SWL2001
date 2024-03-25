@@ -1,0 +1,805 @@
+ARM GAS  /tmp/ccHKmZWX.s 			page 1
+
+
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 23, 1
+   4              		.eabi_attribute 24, 1
+   5              		.eabi_attribute 25, 1
+   6              		.eabi_attribute 26, 2
+   7              		.eabi_attribute 30, 4
+   8              		.eabi_attribute 34, 1
+   9              		.eabi_attribute 18, 4
+  10              		.file	"smtc_modem_hal.c"
+  11              		.text
+  12              		.section	.text.smtc_modem_hal_reset_mcu,"ax",%progbits
+  13              		.align	2
+  14              		.global	smtc_modem_hal_reset_mcu
+  15              		.arch armv7-a
+  16              		.syntax unified
+  17              		.arm
+  18              		.fpu neon
+  20              	smtc_modem_hal_reset_mcu:
+  21              		@ args = 0, pretend = 0, frame = 0
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23              		@ link register save eliminated.
+  24 0000 FEFFFFEA 		b	hal_mcu_reset
+  26              		.section	.text.smtc_modem_hal_reload_wdog,"ax",%progbits
+  27              		.align	2
+  28              		.global	smtc_modem_hal_reload_wdog
+  29              		.syntax unified
+  30              		.arm
+  31              		.fpu neon
+  33              	smtc_modem_hal_reload_wdog:
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36              		@ link register save eliminated.
+  37 0000 FEFFFFEA 		b	hal_watchdog_reload
+  39              		.section	.text.smtc_modem_hal_get_time_in_s,"ax",%progbits
+  40              		.align	2
+  41              		.global	smtc_modem_hal_get_time_in_s
+  42              		.syntax unified
+  43              		.arm
+  44              		.fpu neon
+  46              	smtc_modem_hal_get_time_in_s:
+  47              		@ args = 0, pretend = 0, frame = 0
+  48              		@ frame_needed = 0, uses_anonymous_args = 0
+  49              		@ link register save eliminated.
+  50 0000 FEFFFFEA 		b	hal_rtc_get_time_s
+  52              		.section	.text.smtc_modem_hal_get_time_in_ms,"ax",%progbits
+  53              		.align	2
+  54              		.global	smtc_modem_hal_get_time_in_ms
+  55              		.syntax unified
+  56              		.arm
+  57              		.fpu neon
+  59              	smtc_modem_hal_get_time_in_ms:
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62              		@ link register save eliminated.
+  63 0000 FEFFFFEA 		b	hal_rtc_get_time_ms
+  65              		.section	.text.smtc_modem_hal_get_time_in_100us,"ax",%progbits
+ARM GAS  /tmp/ccHKmZWX.s 			page 2
+
+
+  66              		.align	2
+  67              		.global	smtc_modem_hal_get_time_in_100us
+  68              		.syntax unified
+  69              		.arm
+  70              		.fpu neon
+  72              	smtc_modem_hal_get_time_in_100us:
+  73              		@ args = 0, pretend = 0, frame = 0
+  74              		@ frame_needed = 0, uses_anonymous_args = 0
+  75              		@ link register save eliminated.
+  76 0000 FEFFFFEA 		b	hal_rtc_get_time_100us
+  78              		.section	.text.smtc_modem_hal_start_timer,"ax",%progbits
+  79              		.align	2
+  80              		.global	smtc_modem_hal_start_timer
+  81              		.syntax unified
+  82              		.arm
+  83              		.fpu neon
+  85              	smtc_modem_hal_start_timer:
+  86              		@ args = 0, pretend = 0, frame = 16
+  87              		@ frame_needed = 0, uses_anonymous_args = 0
+  88 0000 1F402DE9 		push	{r0, r1, r2, r3, r4, lr}
+  89 0004 0030A0E3 		mov	r3, #0
+  90 0008 04208DE5 		str	r2, [sp, #4]
+  91 000c 04208DE2 		add	r2, sp, #4
+  92 0010 08108DE5 		str	r1, [sp, #8]
+  93 0014 0010A0E1 		mov	r1, r0
+  94 0018 0300A0E1 		mov	r0, r3
+  95 001c 0C308DE5 		str	r3, [sp, #12]
+  96 0020 FEFFFFEB 		bl	hal_lp_timer_start
+  97 0024 14D08DE2 		add	sp, sp, #20
+  98              		@ sp needed
+  99 0028 04F09DE4 		ldr	pc, [sp], #4
+ 101              		.section	.text.smtc_modem_hal_stop_timer,"ax",%progbits
+ 102              		.align	2
+ 103              		.global	smtc_modem_hal_stop_timer
+ 104              		.syntax unified
+ 105              		.arm
+ 106              		.fpu neon
+ 108              	smtc_modem_hal_stop_timer:
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112 0000 0000A0E3 		mov	r0, #0
+ 113 0004 FEFFFFEA 		b	hal_lp_timer_stop
+ 115              		.section	.text.smtc_modem_hal_disable_modem_irq,"ax",%progbits
+ 116              		.align	2
+ 117              		.global	smtc_modem_hal_disable_modem_irq
+ 118              		.syntax unified
+ 119              		.arm
+ 120              		.fpu neon
+ 122              	smtc_modem_hal_disable_modem_irq:
+ 123              		@ args = 0, pretend = 0, frame = 0
+ 124              		@ frame_needed = 0, uses_anonymous_args = 0
+ 125 0000 10402DE9 		push	{r4, lr}
+ 126 0004 FEFFFFEB 		bl	hal_gpio_irq_disable
+ 127 0008 0000A0E3 		mov	r0, #0
+ 128 000c FEFFFFEB 		bl	hal_lp_timer_irq_disable
+ 129 0010 0100A0E3 		mov	r0, #1
+ARM GAS  /tmp/ccHKmZWX.s 			page 3
+
+
+ 130 0014 1040BDE8 		pop	{r4, lr}
+ 131 0018 FEFFFFEA 		b	hal_lp_timer_irq_disable
+ 133              		.section	.text.smtc_modem_hal_enable_modem_irq,"ax",%progbits
+ 134              		.align	2
+ 135              		.global	smtc_modem_hal_enable_modem_irq
+ 136              		.syntax unified
+ 137              		.arm
+ 138              		.fpu neon
+ 140              	smtc_modem_hal_enable_modem_irq:
+ 141              		@ args = 0, pretend = 0, frame = 0
+ 142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 143 0000 10402DE9 		push	{r4, lr}
+ 144 0004 FEFFFFEB 		bl	hal_gpio_irq_enable
+ 145 0008 0000A0E3 		mov	r0, #0
+ 146 000c FEFFFFEB 		bl	hal_lp_timer_irq_enable
+ 147 0010 0100A0E3 		mov	r0, #1
+ 148 0014 1040BDE8 		pop	{r4, lr}
+ 149 0018 FEFFFFEA 		b	hal_lp_timer_irq_enable
+ 151              		.section	.text.smtc_modem_hal_context_restore,"ax",%progbits
+ 152              		.align	2
+ 153              		.global	smtc_modem_hal_context_restore
+ 154              		.syntax unified
+ 155              		.arm
+ 156              		.fpu neon
+ 158              	smtc_modem_hal_context_restore:
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161 0000 01C0A0E1 		mov	ip, r1
+ 162 0004 0210A0E1 		mov	r1, r2
+ 163 0008 0320A0E1 		mov	r2, r3
+ 164 000c 050050E3 		cmp	r0, #5
+ 165 0010 00F19F97 		ldrls	pc, [pc, r0, asl #2]
+ 166 0014 0D0000EA 		b	.L14
+ 167              	.L16:
+ 168 0018 30000000 		.word	.L20
+ 169 001c 38000000 		.word	.L19
+ 170 0020 40000000 		.word	.L18
+ 171 0024 80000000 		.word	.L13
+ 172 0028 48000000 		.word	.L17
+ 173 002c 80000000 		.word	.L13
+ 174              	.L20:
+ 175 0030 4B00A0E3 		mov	r0, #75
+ 176              	.L23:
+ 177 0034 FEFFFFEA 		b	hal_eeprom_read_buffer
+ 178              	.L19:
+ 179 0038 3200A0E3 		mov	r0, #50
+ 180 003c FCFFFFEA 		b	.L23
+ 181              	.L18:
+ 182 0040 0C00A0E1 		mov	r0, ip
+ 183 0044 FAFFFFEA 		b	.L23
+ 184              	.L17:
+ 185 0048 6400A0E3 		mov	r0, #100
+ 186 004c F8FFFFEA 		b	.L23
+ 187              	.L14:
+ 188 0050 10402DE9 		push	{r4, lr}
+ 189 0054 28109FE5 		ldr	r1, .L24
+ 190 0058 28009FE5 		ldr	r0, .L24+4
+ARM GAS  /tmp/ccHKmZWX.s 			page 4
+
+
+ 191 005c FEFFFFEB 		bl	hal_trace_print_var
+ 192 0060 24009FE5 		ldr	r0, .L24+8
+ 193 0064 FEFFFFEB 		bl	hal_trace_print_var
+ 194 0068 20009FE5 		ldr	r0, .L24+12
+ 195 006c FEFFFFEB 		bl	hal_trace_print_var
+ 196 0070 14009FE5 		ldr	r0, .L24+8
+ 197 0074 FEFFFFEB 		bl	hal_trace_print_var
+ 198 0078 1040BDE8 		pop	{r4, lr}
+ 199 007c FEFFFFEA 		b	hal_mcu_reset
+ 200              	.L13:
+ 201 0080 1EFF2FE1 		bx	lr
+ 202              	.L25:
+ 203              		.align	2
+ 204              	.L24:
+ 205 0084 00000000 		.word	.LANCHOR0
+ 206 0088 00000000 		.word	.LC0
+ 207 008c 1C000000 		.word	.LC1
+ 208 0090 21000000 		.word	.LC2
+ 210              		.section	.text.smtc_modem_hal_context_store,"ax",%progbits
+ 211              		.align	2
+ 212              		.global	smtc_modem_hal_context_store
+ 213              		.syntax unified
+ 214              		.arm
+ 215              		.fpu neon
+ 217              	smtc_modem_hal_context_store:
+ 218              		@ args = 0, pretend = 0, frame = 0
+ 219              		@ frame_needed = 0, uses_anonymous_args = 0
+ 220 0000 01C0A0E1 		mov	ip, r1
+ 221 0004 0210A0E1 		mov	r1, r2
+ 222 0008 0320A0E1 		mov	r2, r3
+ 223 000c 050050E3 		cmp	r0, #5
+ 224 0010 00F19F97 		ldrls	pc, [pc, r0, asl #2]
+ 225 0014 0D0000EA 		b	.L27
+ 226              	.L29:
+ 227 0018 30000000 		.word	.L33
+ 228 001c 38000000 		.word	.L32
+ 229 0020 40000000 		.word	.L31
+ 230 0024 80000000 		.word	.L26
+ 231 0028 48000000 		.word	.L30
+ 232 002c 80000000 		.word	.L26
+ 233              	.L33:
+ 234 0030 4B00A0E3 		mov	r0, #75
+ 235              	.L36:
+ 236 0034 FEFFFFEA 		b	hal_eeprom_write_buffer
+ 237              	.L32:
+ 238 0038 3200A0E3 		mov	r0, #50
+ 239 003c FCFFFFEA 		b	.L36
+ 240              	.L31:
+ 241 0040 0C00A0E1 		mov	r0, ip
+ 242 0044 FAFFFFEA 		b	.L36
+ 243              	.L30:
+ 244 0048 6400A0E3 		mov	r0, #100
+ 245 004c F8FFFFEA 		b	.L36
+ 246              	.L27:
+ 247 0050 10402DE9 		push	{r4, lr}
+ 248 0054 28109FE5 		ldr	r1, .L37
+ 249 0058 28009FE5 		ldr	r0, .L37+4
+ARM GAS  /tmp/ccHKmZWX.s 			page 5
+
+
+ 250 005c FEFFFFEB 		bl	hal_trace_print_var
+ 251 0060 24009FE5 		ldr	r0, .L37+8
+ 252 0064 FEFFFFEB 		bl	hal_trace_print_var
+ 253 0068 20009FE5 		ldr	r0, .L37+12
+ 254 006c FEFFFFEB 		bl	hal_trace_print_var
+ 255 0070 14009FE5 		ldr	r0, .L37+8
+ 256 0074 FEFFFFEB 		bl	hal_trace_print_var
+ 257 0078 1040BDE8 		pop	{r4, lr}
+ 258 007c FEFFFFEA 		b	hal_mcu_reset
+ 259              	.L26:
+ 260 0080 1EFF2FE1 		bx	lr
+ 261              	.L38:
+ 262              		.align	2
+ 263              	.L37:
+ 264 0084 00000000 		.word	.LANCHOR1
+ 265 0088 00000000 		.word	.LC0
+ 266 008c 1C000000 		.word	.LC1
+ 267 0090 21000000 		.word	.LC2
+ 269              		.section	.text.smtc_modem_hal_context_flash_pages_erase,"ax",%progbits
+ 270              		.align	2
+ 271              		.global	smtc_modem_hal_context_flash_pages_erase
+ 272              		.syntax unified
+ 273              		.arm
+ 274              		.fpu neon
+ 276              	smtc_modem_hal_context_flash_pages_erase:
+ 277              		@ args = 0, pretend = 0, frame = 0
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279 0000 10402DE9 		push	{r4, lr}
+ 280 0004 28409FE5 		ldr	r4, .L41
+ 281 0008 28109FE5 		ldr	r1, .L41+4
+ 282 000c 28009FE5 		ldr	r0, .L41+8
+ 283 0010 FEFFFFEB 		bl	hal_trace_print_var
+ 284 0014 0400A0E1 		mov	r0, r4
+ 285 0018 FEFFFFEB 		bl	hal_trace_print_var
+ 286 001c 1C009FE5 		ldr	r0, .L41+12
+ 287 0020 FEFFFFEB 		bl	hal_trace_print_var
+ 288 0024 0400A0E1 		mov	r0, r4
+ 289 0028 FEFFFFEB 		bl	hal_trace_print_var
+ 290 002c 1040BDE8 		pop	{r4, lr}
+ 291 0030 FEFFFFEA 		b	hal_mcu_reset
+ 292              	.L42:
+ 293              		.align	2
+ 294              	.L41:
+ 295 0034 1C000000 		.word	.LC1
+ 296 0038 00000000 		.word	.LANCHOR2
+ 297 003c 00000000 		.word	.LC0
+ 298 0040 21000000 		.word	.LC2
+ 300              		.section	.text.smtc_modem_hal_crashlog_store,"ax",%progbits
+ 301              		.align	2
+ 302              		.global	smtc_modem_hal_crashlog_store
+ 303              		.syntax unified
+ 304              		.arm
+ 305              		.fpu neon
+ 307              	smtc_modem_hal_crashlog_store:
+ 308              		@ args = 0, pretend = 0, frame = 0
+ 309              		@ frame_needed = 0, uses_anonymous_args = 0
+ 310 0000 2C309FE5 		ldr	r3, .L45
+ARM GAS  /tmp/ccHKmZWX.s 			page 6
+
+
+ 311 0004 F20051E3 		cmp	r1, #242
+ 312 0008 10402DE9 		push	{r4, lr}
+ 313 000c F210A023 		movcs	r1, #242
+ 314 0010 0010C3E5 		strb	r1, [r3]
+ 315 0014 0010A0E1 		mov	r1, r0
+ 316 0018 0020D3E5 		ldrb	r2, [r3]	@ zero_extendqisi2
+ 317 001c 14009FE5 		ldr	r0, .L45+4
+ 318 0020 FEFFFFEB 		bl	memcpy
+ 319 0024 10309FE5 		ldr	r3, .L45+8
+ 320 0028 0120A0E3 		mov	r2, #1
+ 321 002c 0020C3E5 		strb	r2, [r3]
+ 322 0030 1080BDE8 		pop	{r4, pc}
+ 323              	.L46:
+ 324              		.align	2
+ 325              	.L45:
+ 326 0034 00000000 		.word	.LANCHOR3
+ 327 0038 00000000 		.word	.LANCHOR4
+ 328 003c 00000000 		.word	.LANCHOR5
+ 330              		.section	.text.smtc_modem_hal_crashlog_restore,"ax",%progbits
+ 331              		.align	2
+ 332              		.global	smtc_modem_hal_crashlog_restore
+ 333              		.syntax unified
+ 334              		.arm
+ 335              		.fpu neon
+ 337              	smtc_modem_hal_crashlog_restore:
+ 338              		@ args = 0, pretend = 0, frame = 0
+ 339              		@ frame_needed = 0, uses_anonymous_args = 0
+ 340              		@ link register save eliminated.
+ 341 0000 1C309FE5 		ldr	r3, .L50
+ 342 0004 0020D3E5 		ldrb	r2, [r3]	@ zero_extendqisi2
+ 343 0008 F20052E3 		cmp	r2, #242
+ 344 000c 0020D395 		ldrbls	r2, [r3]	@ zero_extendqisi2
+ 345 0010 F220A083 		movhi	r2, #242
+ 346 0014 7220EF96 		uxtbls	r2, r2
+ 347 0018 0020C1E5 		strb	r2, [r1]
+ 348 001c 04109FE5 		ldr	r1, .L50+4
+ 349 0020 FEFFFFEA 		b	memcpy
+ 350              	.L51:
+ 351              		.align	2
+ 352              	.L50:
+ 353 0024 00000000 		.word	.LANCHOR3
+ 354 0028 00000000 		.word	.LANCHOR4
+ 356              		.section	.text.smtc_modem_hal_crashlog_set_status,"ax",%progbits
+ 357              		.align	2
+ 358              		.global	smtc_modem_hal_crashlog_set_status
+ 359              		.syntax unified
+ 360              		.arm
+ 361              		.fpu neon
+ 363              	smtc_modem_hal_crashlog_set_status:
+ 364              		@ args = 0, pretend = 0, frame = 0
+ 365              		@ frame_needed = 0, uses_anonymous_args = 0
+ 366              		@ link register save eliminated.
+ 367 0000 04309FE5 		ldr	r3, .L53
+ 368 0004 0000C3E5 		strb	r0, [r3]
+ 369 0008 1EFF2FE1 		bx	lr
+ 370              	.L54:
+ 371              		.align	2
+ARM GAS  /tmp/ccHKmZWX.s 			page 7
+
+
+ 372              	.L53:
+ 373 000c 00000000 		.word	.LANCHOR5
+ 375              		.section	.text.smtc_modem_hal_crashlog_get_status,"ax",%progbits
+ 376              		.align	2
+ 377              		.global	smtc_modem_hal_crashlog_get_status
+ 378              		.syntax unified
+ 379              		.arm
+ 380              		.fpu neon
+ 382              	smtc_modem_hal_crashlog_get_status:
+ 383              		@ args = 0, pretend = 0, frame = 0
+ 384              		@ frame_needed = 0, uses_anonymous_args = 0
+ 385              		@ link register save eliminated.
+ 386 0000 04309FE5 		ldr	r3, .L56
+ 387 0004 0000D3E5 		ldrb	r0, [r3]	@ zero_extendqisi2
+ 388 0008 1EFF2FE1 		bx	lr
+ 389              	.L57:
+ 390              		.align	2
+ 391              	.L56:
+ 392 000c 00000000 		.word	.LANCHOR5
+ 394              		.section	.text.smtc_modem_hal_on_panic,"ax",%progbits
+ 395              		.align	2
+ 396              		.global	smtc_modem_hal_on_panic
+ 397              		.syntax unified
+ 398              		.arm
+ 399              		.fpu neon
+ 401              	smtc_modem_hal_on_panic:
+ 402              		@ args = 4, pretend = 8, frame = 264
+ 403              		@ frame_needed = 0, uses_anonymous_args = 1
+ 404 0000 0C002DE9 		push	{r2, r3}
+ 405 0004 70402DE9 		push	{r4, r5, r6, lr}
+ 406 0008 FF40A0E3 		mov	r4, #255
+ 407 000c 11DE4DE2 		sub	sp, sp, #272
+ 408 0010 0050A0E1 		mov	r5, r0
+ 409 0014 0160A0E1 		mov	r6, r1
+ 410 0018 0420A0E1 		mov	r2, r4
+ 411 001c 0010A0E3 		mov	r1, #0
+ 412 0020 10008DE2 		add	r0, sp, #16
+ 413 0024 FEFFFFEB 		bl	memset
+ 414 0028 0530A0E1 		mov	r3, r5
+ 415 002c 0410A0E1 		mov	r1, r4
+ 416 0030 00608DE5 		str	r6, [sp]
+ 417 0034 58209FE5 		ldr	r2, .L60
+ 418 0038 10008DE2 		add	r0, sp, #16
+ 419 003c FEFFFFEB 		bl	snprintf
+ 420 0040 10308DE2 		add	r3, sp, #16
+ 421 0044 492F8DE2 		add	r2, sp, #292
+ 422 0048 20119DE5 		ldr	r1, [sp, #288]
+ 423 004c 0C208DE5 		str	r2, [sp, #12]
+ 424 0050 7040EFE6 		uxtb	r4, r0
+ 425 0054 040083E0 		add	r0, r3, r4
+ 426 0058 FEFFFFEB 		bl	vsprintf
+ 427 005c 001084E0 		add	r1, r4, r0
+ 428 0060 10008DE2 		add	r0, sp, #16
+ 429 0064 7110EFE6 		uxtb	r1, r1
+ 430 0068 FEFFFFEB 		bl	smtc_modem_hal_crashlog_store
+ 431 006c 10108DE2 		add	r1, sp, #16
+ 432 0070 20009FE5 		ldr	r0, .L60+4
+ARM GAS  /tmp/ccHKmZWX.s 			page 8
+
+
+ 433 0074 FEFFFFEB 		bl	hal_trace_print_var
+ 434 0078 1C009FE5 		ldr	r0, .L60+8
+ 435 007c FEFFFFEB 		bl	hal_trace_print_var
+ 436 0080 FEFFFFEB 		bl	hal_mcu_reset
+ 437 0084 11DE8DE2 		add	sp, sp, #272
+ 438              		@ sp needed
+ 439 0088 7040BDE8 		pop	{r4, r5, r6, lr}
+ 440 008c 08D08DE2 		add	sp, sp, #8
+ 441 0090 1EFF2FE1 		bx	lr
+ 442              	.L61:
+ 443              		.align	2
+ 444              	.L60:
+ 445 0094 00000000 		.word	.LC3
+ 446 0098 08000000 		.word	.LC4
+ 447 009c 1C000000 		.word	.LC1
+ 449              		.section	.text.smtc_modem_hal_get_random_nb_in_range,"ax",%progbits
+ 450              		.align	2
+ 451              		.global	smtc_modem_hal_get_random_nb_in_range
+ 452              		.syntax unified
+ 453              		.arm
+ 454              		.fpu neon
+ 456              	smtc_modem_hal_get_random_nb_in_range:
+ 457              		@ args = 0, pretend = 0, frame = 0
+ 458              		@ frame_needed = 0, uses_anonymous_args = 0
+ 459              		@ link register save eliminated.
+ 460 0000 FEFFFFEA 		b	hal_rng_get_random_in_range
+ 462              		.section	.text.smtc_modem_hal_irq_config_radio_irq,"ax",%progbits
+ 463              		.align	2
+ 464              		.global	smtc_modem_hal_irq_config_radio_irq
+ 465              		.syntax unified
+ 466              		.arm
+ 467              		.fpu neon
+ 469              	smtc_modem_hal_irq_config_radio_irq:
+ 470              		@ args = 0, pretend = 0, frame = 0
+ 471              		@ frame_needed = 0, uses_anonymous_args = 0
+ 472 0000 70402DE9 		push	{r4, r5, r6, lr}
+ 473 0004 0150A0E1 		mov	r5, r1
+ 474 0008 0040A0E1 		mov	r4, r0
+ 475 000c FEFFFFEB 		bl	smtc_modem_get_radio_context
+ 476 0010 0520A0E1 		mov	r2, r5
+ 477 0014 0410A0E1 		mov	r1, r4
+ 478 0018 7040BDE8 		pop	{r4, r5, r6, lr}
+ 479 001c FEFFFFEA 		b	sx127x_irq_attach
+ 481              		.section	.text.smtc_modem_hal_radio_irq_clear_pending,"ax",%progbits
+ 482              		.align	2
+ 483              		.global	smtc_modem_hal_radio_irq_clear_pending
+ 484              		.syntax unified
+ 485              		.arm
+ 486              		.fpu neon
+ 488              	smtc_modem_hal_radio_irq_clear_pending:
+ 489              		@ args = 0, pretend = 0, frame = 0
+ 490              		@ frame_needed = 0, uses_anonymous_args = 0
+ 491 0000 10402DE9 		push	{r4, lr}
+ 492 0004 3700A0E3 		mov	r0, #55
+ 493 0008 FEFFFFEB 		bl	hal_gpio_clear_pending_irq
+ 494 000c 3600A0E3 		mov	r0, #54
+ 495 0010 FEFFFFEB 		bl	hal_gpio_clear_pending_irq
+ARM GAS  /tmp/ccHKmZWX.s 			page 9
+
+
+ 496 0014 0400A0E3 		mov	r0, #4
+ 497 0018 1040BDE8 		pop	{r4, lr}
+ 498 001c FEFFFFEA 		b	hal_gpio_clear_pending_irq
+ 500              		.section	.text.smtc_modem_hal_start_radio_tcxo,"ax",%progbits
+ 501              		.align	2
+ 502              		.global	smtc_modem_hal_start_radio_tcxo
+ 503              		.syntax unified
+ 504              		.arm
+ 505              		.fpu neon
+ 507              	smtc_modem_hal_start_radio_tcxo:
+ 508              		@ args = 0, pretend = 0, frame = 0
+ 509              		@ frame_needed = 0, uses_anonymous_args = 0
+ 510              		@ link register save eliminated.
+ 511 0000 1EFF2FE1 		bx	lr
+ 513              		.section	.text.smtc_modem_hal_stop_radio_tcxo,"ax",%progbits
+ 514              		.align	2
+ 515              		.global	smtc_modem_hal_stop_radio_tcxo
+ 516              		.syntax unified
+ 517              		.arm
+ 518              		.fpu neon
+ 520              	smtc_modem_hal_stop_radio_tcxo:
+ 521              		@ args = 0, pretend = 0, frame = 0
+ 522              		@ frame_needed = 0, uses_anonymous_args = 0
+ 523              		@ link register save eliminated.
+ 524 0000 1EFF2FE1 		bx	lr
+ 526              		.section	.text.smtc_modem_hal_get_radio_tcxo_startup_delay_ms,"ax",%progbits
+ 527              		.align	2
+ 528              		.global	smtc_modem_hal_get_radio_tcxo_startup_delay_ms
+ 529              		.syntax unified
+ 530              		.arm
+ 531              		.fpu neon
+ 533              	smtc_modem_hal_get_radio_tcxo_startup_delay_ms:
+ 534              		@ args = 0, pretend = 0, frame = 0
+ 535              		@ frame_needed = 0, uses_anonymous_args = 0
+ 536              		@ link register save eliminated.
+ 537 0000 0000A0E3 		mov	r0, #0
+ 538 0004 1EFF2FE1 		bx	lr
+ 540              		.section	.text.smtc_modem_hal_set_ant_switch,"ax",%progbits
+ 541              		.align	2
+ 542              		.global	smtc_modem_hal_set_ant_switch
+ 543              		.syntax unified
+ 544              		.arm
+ 545              		.fpu neon
+ 547              	smtc_modem_hal_set_ant_switch:
+ 548              		@ args = 0, pretend = 0, frame = 0
+ 549              		@ frame_needed = 0, uses_anonymous_args = 0
+ 550              		@ link register save eliminated.
+ 551 0000 0010A0E1 		mov	r1, r0
+ 552 0004 0000E0E3 		mvn	r0, #0
+ 553 0008 FEFFFFEA 		b	hal_gpio_set_value
+ 555              		.section	.text.smtc_modem_hal_get_battery_level,"ax",%progbits
+ 556              		.align	2
+ 557              		.global	smtc_modem_hal_get_battery_level
+ 558              		.syntax unified
+ 559              		.arm
+ 560              		.fpu neon
+ 562              	smtc_modem_hal_get_battery_level:
+ARM GAS  /tmp/ccHKmZWX.s 			page 10
+
+
+ 563              		@ args = 0, pretend = 0, frame = 0
+ 564              		@ frame_needed = 0, uses_anonymous_args = 0
+ 565              		@ link register save eliminated.
+ 566 0000 FF00A0E3 		mov	r0, #255
+ 567 0004 1EFF2FE1 		bx	lr
+ 569              		.section	.text.smtc_modem_hal_get_board_delay_ms,"ax",%progbits
+ 570              		.align	2
+ 571              		.global	smtc_modem_hal_get_board_delay_ms
+ 572              		.syntax unified
+ 573              		.arm
+ 574              		.fpu neon
+ 576              	smtc_modem_hal_get_board_delay_ms:
+ 577              		@ args = 0, pretend = 0, frame = 0
+ 578              		@ frame_needed = 0, uses_anonymous_args = 0
+ 579              		@ link register save eliminated.
+ 580 0000 0100A0E3 		mov	r0, #1
+ 581 0004 1EFF2FE1 		bx	lr
+ 583              		.section	.text.smtc_modem_hal_print_trace,"ax",%progbits
+ 584              		.align	2
+ 585              		.global	smtc_modem_hal_print_trace
+ 586              		.syntax unified
+ 587              		.arm
+ 588              		.fpu neon
+ 590              	smtc_modem_hal_print_trace:
+ 591              		@ args = 4, pretend = 16, frame = 8
+ 592              		@ frame_needed = 0, uses_anonymous_args = 1
+ 593 0000 0F002DE9 		push	{r0, r1, r2, r3}
+ 594 0004 07402DE9 		push	{r0, r1, r2, lr}
+ 595 0008 14108DE2 		add	r1, sp, #20
+ 596 000c 10009DE5 		ldr	r0, [sp, #16]
+ 597 0010 04108DE5 		str	r1, [sp, #4]
+ 598 0014 FEFFFFEB 		bl	hal_trace_print
+ 599 0018 0CD08DE2 		add	sp, sp, #12
+ 600              		@ sp needed
+ 601 001c 04E09DE4 		ldr	lr, [sp], #4
+ 602 0020 10D08DE2 		add	sp, sp, #16
+ 603 0024 1EFF2FE1 		bx	lr
+ 605              		.section	.text.smtc_modem_hal_get_temperature,"ax",%progbits
+ 606              		.align	2
+ 607              		.global	smtc_modem_hal_get_temperature
+ 608              		.syntax unified
+ 609              		.arm
+ 610              		.fpu neon
+ 612              	smtc_modem_hal_get_temperature:
+ 613              		@ args = 0, pretend = 0, frame = 0
+ 614              		@ frame_needed = 0, uses_anonymous_args = 0
+ 615              		@ link register save eliminated.
+ 616 0000 1900A0E3 		mov	r0, #25
+ 617 0004 1EFF2FE1 		bx	lr
+ 619              		.section	.text.smtc_modem_hal_get_voltage_mv,"ax",%progbits
+ 620              		.align	2
+ 621              		.global	smtc_modem_hal_get_voltage_mv
+ 622              		.syntax unified
+ 623              		.arm
+ 624              		.fpu neon
+ 626              	smtc_modem_hal_get_voltage_mv:
+ 627              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccHKmZWX.s 			page 11
+
+
+ 628              		@ frame_needed = 0, uses_anonymous_args = 0
+ 629              		@ link register save eliminated.
+ 630 0000 E40C00E3 		movw	r0, #3300
+ 631 0004 1EFF2FE1 		bx	lr
+ 633              		.section	.text.smtc_modem_hal_user_lbm_irq,"ax",%progbits
+ 634              		.align	2
+ 635              		.global	smtc_modem_hal_user_lbm_irq
+ 636              		.syntax unified
+ 637              		.arm
+ 638              		.fpu neon
+ 640              	smtc_modem_hal_user_lbm_irq:
+ 641              		@ args = 0, pretend = 0, frame = 0
+ 642              		@ frame_needed = 0, uses_anonymous_args = 0
+ 643              		@ link register save eliminated.
+ 644 0000 1EFF2FE1 		bx	lr
+ 646              		.section	.bss.crashlog_available_noinit,"aw",%nobits
+ 647              		.set	.LANCHOR5,. + 0
+ 650              	crashlog_available_noinit:
+ 651 0000 00       		.space	1
+ 652              		.section	.bss.crashlog_buff_noinit,"aw",%nobits
+ 653              		.align	3
+ 654              		.set	.LANCHOR4,. + 0
+ 657              	crashlog_buff_noinit:
+ 658 0000 00000000 		.space	242
+ 658      00000000 
+ 658      00000000 
+ 658      00000000 
+ 658      00000000 
+ 659              		.section	.bss.crashlog_length_noinit,"aw",%nobits
+ 660              		.set	.LANCHOR3,. + 0
+ 663              	crashlog_length_noinit:
+ 664 0000 00       		.space	1
+ 665              		.section	.rodata.__func__.7744,"a"
+ 666              		.set	.LANCHOR0,. + 0
+ 669              	__func__.7744:
+ 670 0000 736D7463 		.ascii	"smtc_modem_hal_context_restore\000"
+ 670      5F6D6F64 
+ 670      656D5F68 
+ 670      616C5F63 
+ 670      6F6E7465 
+ 671              		.section	.rodata.__func__.7759,"a"
+ 672              		.set	.LANCHOR1,. + 0
+ 675              	__func__.7759:
+ 676 0000 736D7463 		.ascii	"smtc_modem_hal_context_store\000"
+ 676      5F6D6F64 
+ 676      656D5F68 
+ 676      616C5F63 
+ 676      6F6E7465 
+ 677              		.section	.rodata.__func__.7766,"a"
+ 678              		.set	.LANCHOR2,. + 0
+ 681              	__func__.7766:
+ 682 0000 736D7463 		.ascii	"smtc_modem_hal_context_flash_pages_erase\000"
+ 682      5F6D6F64 
+ 682      656D5F68 
+ 682      616C5F63 
+ 682      6F6E7465 
+ 683              		.section	.rodata.smtc_modem_hal_context_restore.str1.1,"aMS",%progbits,1
+ARM GAS  /tmp/ccHKmZWX.s 			page 12
+
+
+ 684              	.LC0:
+ 685 0000 1B5B303B 		.ascii	"\033[0;31mERROR: mcu_panic:%s\012\000"
+ 685      33316D45 
+ 685      52524F52 
+ 685      3A206D63 
+ 685      755F7061 
+ 686              	.LC1:
+ 687 001c 1B5B306D 		.ascii	"\033[0m\000"
+ 687      00
+ 688              	.LC2:
+ 689 0021 1B5B303B 		.ascii	"\033[0;31mERROR: -> \000"
+ 689      33316D45 
+ 689      52524F52 
+ 689      3A202D3E 
+ 689      2000
+ 690              		.section	.rodata.smtc_modem_hal_on_panic.str1.1,"aMS",%progbits,1
+ 691              	.LC3:
+ 692 0000 25733A25 		.ascii	"%s:%lu \000"
+ 692      6C752000 
+ 693              	.LC4:
+ 694 0008 1B5B303B 		.ascii	"\033[0;31mERROR: Modem panic: %s\012\000"
+ 694      33316D45 
+ 694      52524F52 
+ 694      3A204D6F 
+ 694      64656D20 
+ 695              		.ident	"GCC: (crosstool-NG 1.24.0) 8.3.0"
+ 696              		.section	.note.GNU-stack,"",%progbits
+ARM GAS  /tmp/ccHKmZWX.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 smtc_modem_hal.c
+     /tmp/ccHKmZWX.s:13     .text.smtc_modem_hal_reset_mcu:0000000000000000 $a
+     /tmp/ccHKmZWX.s:20     .text.smtc_modem_hal_reset_mcu:0000000000000000 smtc_modem_hal_reset_mcu
+     /tmp/ccHKmZWX.s:27     .text.smtc_modem_hal_reload_wdog:0000000000000000 $a
+     /tmp/ccHKmZWX.s:33     .text.smtc_modem_hal_reload_wdog:0000000000000000 smtc_modem_hal_reload_wdog
+     /tmp/ccHKmZWX.s:40     .text.smtc_modem_hal_get_time_in_s:0000000000000000 $a
+     /tmp/ccHKmZWX.s:46     .text.smtc_modem_hal_get_time_in_s:0000000000000000 smtc_modem_hal_get_time_in_s
+     /tmp/ccHKmZWX.s:53     .text.smtc_modem_hal_get_time_in_ms:0000000000000000 $a
+     /tmp/ccHKmZWX.s:59     .text.smtc_modem_hal_get_time_in_ms:0000000000000000 smtc_modem_hal_get_time_in_ms
+     /tmp/ccHKmZWX.s:66     .text.smtc_modem_hal_get_time_in_100us:0000000000000000 $a
+     /tmp/ccHKmZWX.s:72     .text.smtc_modem_hal_get_time_in_100us:0000000000000000 smtc_modem_hal_get_time_in_100us
+     /tmp/ccHKmZWX.s:79     .text.smtc_modem_hal_start_timer:0000000000000000 $a
+     /tmp/ccHKmZWX.s:85     .text.smtc_modem_hal_start_timer:0000000000000000 smtc_modem_hal_start_timer
+     /tmp/ccHKmZWX.s:102    .text.smtc_modem_hal_stop_timer:0000000000000000 $a
+     /tmp/ccHKmZWX.s:108    .text.smtc_modem_hal_stop_timer:0000000000000000 smtc_modem_hal_stop_timer
+     /tmp/ccHKmZWX.s:116    .text.smtc_modem_hal_disable_modem_irq:0000000000000000 $a
+     /tmp/ccHKmZWX.s:122    .text.smtc_modem_hal_disable_modem_irq:0000000000000000 smtc_modem_hal_disable_modem_irq
+     /tmp/ccHKmZWX.s:134    .text.smtc_modem_hal_enable_modem_irq:0000000000000000 $a
+     /tmp/ccHKmZWX.s:140    .text.smtc_modem_hal_enable_modem_irq:0000000000000000 smtc_modem_hal_enable_modem_irq
+     /tmp/ccHKmZWX.s:152    .text.smtc_modem_hal_context_restore:0000000000000000 $a
+     /tmp/ccHKmZWX.s:158    .text.smtc_modem_hal_context_restore:0000000000000000 smtc_modem_hal_context_restore
+     /tmp/ccHKmZWX.s:168    .text.smtc_modem_hal_context_restore:0000000000000018 $d
+     /tmp/ccHKmZWX.s:175    .text.smtc_modem_hal_context_restore:0000000000000030 $a
+     /tmp/ccHKmZWX.s:205    .text.smtc_modem_hal_context_restore:0000000000000084 $d
+     /tmp/ccHKmZWX.s:211    .text.smtc_modem_hal_context_store:0000000000000000 $a
+     /tmp/ccHKmZWX.s:217    .text.smtc_modem_hal_context_store:0000000000000000 smtc_modem_hal_context_store
+     /tmp/ccHKmZWX.s:227    .text.smtc_modem_hal_context_store:0000000000000018 $d
+     /tmp/ccHKmZWX.s:234    .text.smtc_modem_hal_context_store:0000000000000030 $a
+     /tmp/ccHKmZWX.s:264    .text.smtc_modem_hal_context_store:0000000000000084 $d
+     /tmp/ccHKmZWX.s:270    .text.smtc_modem_hal_context_flash_pages_erase:0000000000000000 $a
+     /tmp/ccHKmZWX.s:276    .text.smtc_modem_hal_context_flash_pages_erase:0000000000000000 smtc_modem_hal_context_flash_pages_erase
+     /tmp/ccHKmZWX.s:295    .text.smtc_modem_hal_context_flash_pages_erase:0000000000000034 $d
+     /tmp/ccHKmZWX.s:301    .text.smtc_modem_hal_crashlog_store:0000000000000000 $a
+     /tmp/ccHKmZWX.s:307    .text.smtc_modem_hal_crashlog_store:0000000000000000 smtc_modem_hal_crashlog_store
+     /tmp/ccHKmZWX.s:326    .text.smtc_modem_hal_crashlog_store:0000000000000034 $d
+     /tmp/ccHKmZWX.s:331    .text.smtc_modem_hal_crashlog_restore:0000000000000000 $a
+     /tmp/ccHKmZWX.s:337    .text.smtc_modem_hal_crashlog_restore:0000000000000000 smtc_modem_hal_crashlog_restore
+     /tmp/ccHKmZWX.s:353    .text.smtc_modem_hal_crashlog_restore:0000000000000024 $d
+     /tmp/ccHKmZWX.s:357    .text.smtc_modem_hal_crashlog_set_status:0000000000000000 $a
+     /tmp/ccHKmZWX.s:363    .text.smtc_modem_hal_crashlog_set_status:0000000000000000 smtc_modem_hal_crashlog_set_status
+     /tmp/ccHKmZWX.s:373    .text.smtc_modem_hal_crashlog_set_status:000000000000000c $d
+     /tmp/ccHKmZWX.s:376    .text.smtc_modem_hal_crashlog_get_status:0000000000000000 $a
+     /tmp/ccHKmZWX.s:382    .text.smtc_modem_hal_crashlog_get_status:0000000000000000 smtc_modem_hal_crashlog_get_status
+     /tmp/ccHKmZWX.s:392    .text.smtc_modem_hal_crashlog_get_status:000000000000000c $d
+     /tmp/ccHKmZWX.s:395    .text.smtc_modem_hal_on_panic:0000000000000000 $a
+     /tmp/ccHKmZWX.s:401    .text.smtc_modem_hal_on_panic:0000000000000000 smtc_modem_hal_on_panic
+     /tmp/ccHKmZWX.s:445    .text.smtc_modem_hal_on_panic:0000000000000094 $d
+     /tmp/ccHKmZWX.s:450    .text.smtc_modem_hal_get_random_nb_in_range:0000000000000000 $a
+     /tmp/ccHKmZWX.s:456    .text.smtc_modem_hal_get_random_nb_in_range:0000000000000000 smtc_modem_hal_get_random_nb_in_range
+     /tmp/ccHKmZWX.s:463    .text.smtc_modem_hal_irq_config_radio_irq:0000000000000000 $a
+     /tmp/ccHKmZWX.s:469    .text.smtc_modem_hal_irq_config_radio_irq:0000000000000000 smtc_modem_hal_irq_config_radio_irq
+     /tmp/ccHKmZWX.s:482    .text.smtc_modem_hal_radio_irq_clear_pending:0000000000000000 $a
+     /tmp/ccHKmZWX.s:488    .text.smtc_modem_hal_radio_irq_clear_pending:0000000000000000 smtc_modem_hal_radio_irq_clear_pending
+     /tmp/ccHKmZWX.s:501    .text.smtc_modem_hal_start_radio_tcxo:0000000000000000 $a
+     /tmp/ccHKmZWX.s:507    .text.smtc_modem_hal_start_radio_tcxo:0000000000000000 smtc_modem_hal_start_radio_tcxo
+     /tmp/ccHKmZWX.s:514    .text.smtc_modem_hal_stop_radio_tcxo:0000000000000000 $a
+ARM GAS  /tmp/ccHKmZWX.s 			page 14
+
+
+     /tmp/ccHKmZWX.s:520    .text.smtc_modem_hal_stop_radio_tcxo:0000000000000000 smtc_modem_hal_stop_radio_tcxo
+     /tmp/ccHKmZWX.s:527    .text.smtc_modem_hal_get_radio_tcxo_startup_delay_ms:0000000000000000 $a
+     /tmp/ccHKmZWX.s:533    .text.smtc_modem_hal_get_radio_tcxo_startup_delay_ms:0000000000000000 smtc_modem_hal_get_radio_tcxo_startup_delay_ms
+     /tmp/ccHKmZWX.s:541    .text.smtc_modem_hal_set_ant_switch:0000000000000000 $a
+     /tmp/ccHKmZWX.s:547    .text.smtc_modem_hal_set_ant_switch:0000000000000000 smtc_modem_hal_set_ant_switch
+     /tmp/ccHKmZWX.s:556    .text.smtc_modem_hal_get_battery_level:0000000000000000 $a
+     /tmp/ccHKmZWX.s:562    .text.smtc_modem_hal_get_battery_level:0000000000000000 smtc_modem_hal_get_battery_level
+     /tmp/ccHKmZWX.s:570    .text.smtc_modem_hal_get_board_delay_ms:0000000000000000 $a
+     /tmp/ccHKmZWX.s:576    .text.smtc_modem_hal_get_board_delay_ms:0000000000000000 smtc_modem_hal_get_board_delay_ms
+     /tmp/ccHKmZWX.s:584    .text.smtc_modem_hal_print_trace:0000000000000000 $a
+     /tmp/ccHKmZWX.s:590    .text.smtc_modem_hal_print_trace:0000000000000000 smtc_modem_hal_print_trace
+     /tmp/ccHKmZWX.s:606    .text.smtc_modem_hal_get_temperature:0000000000000000 $a
+     /tmp/ccHKmZWX.s:612    .text.smtc_modem_hal_get_temperature:0000000000000000 smtc_modem_hal_get_temperature
+     /tmp/ccHKmZWX.s:620    .text.smtc_modem_hal_get_voltage_mv:0000000000000000 $a
+     /tmp/ccHKmZWX.s:626    .text.smtc_modem_hal_get_voltage_mv:0000000000000000 smtc_modem_hal_get_voltage_mv
+     /tmp/ccHKmZWX.s:634    .text.smtc_modem_hal_user_lbm_irq:0000000000000000 $a
+     /tmp/ccHKmZWX.s:640    .text.smtc_modem_hal_user_lbm_irq:0000000000000000 smtc_modem_hal_user_lbm_irq
+     /tmp/ccHKmZWX.s:650    .bss.crashlog_available_noinit:0000000000000000 crashlog_available_noinit
+     /tmp/ccHKmZWX.s:651    .bss.crashlog_available_noinit:0000000000000000 $d
+     /tmp/ccHKmZWX.s:653    .bss.crashlog_buff_noinit:0000000000000000 $d
+     /tmp/ccHKmZWX.s:657    .bss.crashlog_buff_noinit:0000000000000000 crashlog_buff_noinit
+     /tmp/ccHKmZWX.s:663    .bss.crashlog_length_noinit:0000000000000000 crashlog_length_noinit
+     /tmp/ccHKmZWX.s:664    .bss.crashlog_length_noinit:0000000000000000 $d
+     /tmp/ccHKmZWX.s:669    .rodata.__func__.7744:0000000000000000 __func__.7744
+     /tmp/ccHKmZWX.s:675    .rodata.__func__.7759:0000000000000000 __func__.7759
+     /tmp/ccHKmZWX.s:681    .rodata.__func__.7766:0000000000000000 __func__.7766
+
+UNDEFINED SYMBOLS
+hal_mcu_reset
+hal_watchdog_reload
+hal_rtc_get_time_s
+hal_rtc_get_time_ms
+hal_rtc_get_time_100us
+hal_lp_timer_start
+hal_lp_timer_stop
+hal_gpio_irq_disable
+hal_lp_timer_irq_disable
+hal_gpio_irq_enable
+hal_lp_timer_irq_enable
+hal_eeprom_read_buffer
+hal_trace_print_var
+hal_eeprom_write_buffer
+memcpy
+memset
+snprintf
+vsprintf
+hal_rng_get_random_in_range
+smtc_modem_get_radio_context
+sx127x_irq_attach
+hal_gpio_clear_pending_irq
+hal_gpio_set_value
+hal_trace_print

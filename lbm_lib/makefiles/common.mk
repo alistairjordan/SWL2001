@@ -7,7 +7,8 @@
 #-----------------------------------------------------------------------------
 # Build system binaries
 #-----------------------------------------------------------------------------
-PREFIX = arm-none-eabi-
+#PREFIX = arm-none-eabi-
+PREFIX = arm-rockchip830-linux-uclibcgnueabihf-
 # The gcc compiler bin path can be either defined in make command via GCC_PATH variable (> make GCC_PATH=xxx)
 # either it can be added to the PATH environment variable.
 ifdef GCC_PATH
@@ -25,15 +26,15 @@ AS = $(PREFIX)g++ -x assembler-with-cpp
 CP = $(PREFIX)objcopy
 SZ = $(PREFIX)size
 endif
-HEX = $(CP) -O ihex
-BIN = $(CP) -O binary -S
+HEX = $(CP) #-O ihex
+BIN = $(CP) #-O binary -S
 
 
 #-----------------------------------------------------------------------------
 # Board selection
 #-----------------------------------------------------------------------------
 
--include makefiles/cortex_m4.mk
+#-include makefiles/cortex_m4.mk
 
 
 #-----------------------------------------------------------------------------
@@ -100,20 +101,20 @@ endif
 # Compilation flags
 #-----------------------------------------------------------------------------
 # Basic compilation flags
-WFLAG += \
-	-Wall \
-	-Wextra \
-	-Wno-unused-parameter \
-	-Wpedantic \
-	-fomit-frame-pointer \
-	-fno-unroll-loops \
-	-ffast-math \
-	-ftree-vectorize
+# WFLAG += \
+# 	-Wall \
+# 	-Wextra \
+# 	-Wno-unused-parameter \
+# 	-Wpedantic \
+# 	-fomit-frame-pointer \
+# 	-fno-unroll-loops \
+# 	-ffast-math \
+# 	-ftree-vectorize
 
 # Allow linker to not link unused functions
-WFLAG += \
-	-ffunction-sections \
-	-fdata-sections
+# WFLAG += \
+# 	-ffunction-sections \
+# 	-fdata-sections
 
 # Generate .su files for stack use analysis
 WFLAG += -fstack-usage
@@ -122,10 +123,10 @@ WFLAG += -fstack-usage
 #WFLAG += --lto
 
 # AS defines
-AS_DEFS =
+#AS_DEFS =
 
 # Assembly flags
-ASFLAGS += -fno-builtin $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(LBM_OPT) $(WFLAG)
+#ASFLAGS += -fno-builtin $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(LBM_OPT) $(WFLAG)
 
 # Common C definitions
 LBM_C_DEFS += \
@@ -245,7 +246,7 @@ endif
 # Link flags
 #-----------------------------------------------------------------------------
 # libraries
-LIBS += -lstdc++ -lsupc++ -lm -lc -lnosys
+#LIBS += -lstdc++ -lsupc++ -lm -lc -lnosys
 
 #-----------------------------------------------------------------------------
 # Common sources
@@ -484,8 +485,8 @@ endif
 
 LBM_CFLAGS += $(LBM_C_DEFS)
 LBM_CFLAGS += $(LBM_C_INCLUDES)
-LBM_CFLAGS += -fno-builtin $(MCU_FLAGS) $(EXTRAFLAGS) $(LBM_OPT) $(WFLAG) -MMD -MP -MF"$(@:%.o=%.d)"
-LBM_CFLAGS += -falign-functions=4
+#LBM_CFLAGS += -fno-builtin $(MCU_FLAGS) $(EXTRAFLAGS) $(LBM_OPT) $(WFLAG) -MMD -MP -MF"$(@:%.o=%.d)"
+#LBM_CFLAGS += -falign-functions=4
 LBM_CFLAGS += -std=c17
 
 LBM_C_SOURCES = \
@@ -527,14 +528,14 @@ vpath %.s $(sort $(dir $(MODEM_ASM_SOURCES)))
 
 $(LBM_BUILD_DIR)/%.o: %.c Makefile | $(LBM_BUILD_DIR)
 	$(call build,'CC',$<)
-	$(SILENT)$(CC) -c $(LBM_CFLAGS) -Wa,-a,-ad,-alms=$(LBM_BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
+	$(CC) -c $(LBM_CFLAGS) $< -o $@
 ifeq ($(SIZE),yes)
 	$(SZ) $@
 endif
 
 $(LBM_BUILD_DIR)/%.o: %.s Makefile | $(LBM_BUILD_DIR)
 	$(call build,'AS',$<)
-	$(SILENT)$(AS) -c $(ASFLAGS) $< -o $@
+	$(AS) -c $(ASFLAGS) $< -o $@
 ifeq ($(SIZE),yes)
 	$(SZ) $@
 endif

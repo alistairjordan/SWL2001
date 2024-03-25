@@ -6,7 +6,8 @@
 #-----------------------------------------------------------------------------
 # Build system binaries
 #-----------------------------------------------------------------------------
-PREFIX = arm-none-eabi-
+#PREFIX = arm-none-eabi-
+PREFIX = arm-rockchip830-linux-uclibcgnueabihf-
 # The gcc compiler bin path can be either defined in make command via GCC_PATH variable (> make GCC_PATH=xxx)
 # either it can be added to the PATH environment variable.
 ifdef GCC_PATH
@@ -37,6 +38,11 @@ endif
 ifeq ($(BOARD),NUCLEO_L073)
 -include app_makefiles/board_L073.mk
 BOARD_TARGET=l0
+endif
+
+ifeq ($(BOARD),LINUX)
+-include app_makefiles/board_linux.mk
+BOARD_TARGET=linux
 endif
 
 #-----------------------------------------------------------------------------
@@ -236,20 +242,26 @@ LFS_C_DEFS += -DLFS_NO_MALLOC
 
 CFLAGS += -fno-builtin $(MCU_FLAGS) $(BOARD_C_DEFS) $(COMMON_C_DEFS) $(MODEM_C_DEFS) $(OPT) $(WFLAG) -MMD -MP -MF"$(@:%.o=%.d)"
 CFLAGS += -falign-functions=4
+ifneq ($(BOARD),LINUX)
 CFLAGS += -std=c17
+endif
 
 #-----------------------------------------------------------------------------
 # Link flags
 #-----------------------------------------------------------------------------
 # libraries
+ifneq ($(BOARD),LINUX)
 LIBS += -lstdc++ -lsupc++ -lm -lc -lnosys
+endif
 
 LIBDIR =
 
 LDFLAGS += $(MCU_FLAGS)
+ifneq ($(BOARD),LINUX)
 LDFLAGS += --specs=nano.specs
 LDFLAGS += --specs=nosys.specs
 LDFLAGS += -T$(BOARD_LDSCRIPT) $(LIBDIR) $(LIBS)
+endif
 LDFLAGS += -Wl,--cref # Cross-reference table
 LDFLAGS += -Wl,--print-memory-usage # Display ram/flash memory usage
 LDFLAGS += -Wl,--gc-sections # Garbage collect unused sections

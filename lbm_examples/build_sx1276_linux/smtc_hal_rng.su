@@ -1,0 +1,3 @@
+smtc_hal_rng.c:79:10:hal_rng_get_random	0	static
+smtc_hal_rng.c:85:10:hal_rng_get_random_in_range	16	static
+smtc_hal_rng.c:97:9:hal_rng_get_signed_random_in_range	16	static

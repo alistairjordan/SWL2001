@@ -1,0 +1,311 @@
+ARM GAS  /tmp/ccx3SrwV.s 			page 1
+
+
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 23, 1
+   4              		.eabi_attribute 24, 1
+   5              		.eabi_attribute 25, 1
+   6              		.eabi_attribute 26, 2
+   7              		.eabi_attribute 30, 4
+   8              		.eabi_attribute 34, 1
+   9              		.eabi_attribute 18, 4
+  10              		.file	"smtc_hal_mcu.c"
+  11              		.text
+  12              		.section	.text.hal_mcu_wait_us,"ax",%progbits
+  13              		.align	2
+  14              		.global	hal_mcu_wait_us
+  15              		.arch armv7-a
+  16              		.syntax unified
+  17              		.arm
+  18              		.fpu neon
+  20              	hal_mcu_wait_us:
+  21              		@ args = 0, pretend = 0, frame = 8
+  22              		@ frame_needed = 1, uses_anonymous_args = 0
+  23 0000 00482DE9 		push	{fp, lr}
+  24 0004 04B08DE2 		add	fp, sp, #4
+  25 0008 08D04DE2 		sub	sp, sp, #8
+  26 000c 08000BE5 		str	r0, [fp, #-8]
+  27 0010 08301BE5 		ldr	r3, [fp, #-8]
+  28 0014 0300A0E1 		mov	r0, r3
+  29 0018 FEFFFFEB 		bl	usleep
+  30 001c 00F020E3 		nop
+  31 0020 04D04BE2 		sub	sp, fp, #4
+  32              		@ sp needed
+  33 0024 0088BDE8 		pop	{fp, pc}
+  35              		.section	.text.hal_mcu_set_sleep_for_ms,"ax",%progbits
+  36              		.align	2
+  37              		.global	hal_mcu_set_sleep_for_ms
+  38              		.syntax unified
+  39              		.arm
+  40              		.fpu neon
+  42              	hal_mcu_set_sleep_for_ms:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45 0000 000050E3 		cmp	r0, #0
+  46 0004 1EFF2FD1 		bxle	lr
+  47 0008 10402DE9 		push	{r4, lr}
+  48 000c FEFFFFEB 		bl	hal_rtc_wakeup_timer_set_ms
+  49 0010 1040BDE8 		pop	{r4, lr}
+  50 0014 FEFFFFEA 		b	hal_rtc_wakeup_timer_stop
+  52              		.section	.text.SysTick_Handler,"ax",%progbits
+  53              		.align	2
+  54              		.global	SysTick_Handler
+  55              		.syntax unified
+  56              		.arm
+  57              		.fpu neon
+  59              	SysTick_Handler:
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62              		@ link register save eliminated.
+ARM GAS  /tmp/ccx3SrwV.s 			page 2
+
+
+  63 0000 1EFF2FE1 		bx	lr
+  65              		.section	.text.HAL_MspInit,"ax",%progbits
+  66              		.align	2
+  67              		.global	HAL_MspInit
+  68              		.syntax unified
+  69              		.arm
+  70              		.fpu neon
+  72              	HAL_MspInit:
+  73              		@ args = 0, pretend = 0, frame = 0
+  74              		@ frame_needed = 0, uses_anonymous_args = 0
+  75              		@ link register save eliminated.
+  76 0000 1EFF2FE1 		bx	lr
+  78              		.section	.text.system_clock_config,"ax",%progbits
+  79              		.align	2
+  80              		.syntax unified
+  81              		.arm
+  82              		.fpu neon
+  84              	system_clock_config:
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 0, uses_anonymous_args = 0
+  87              		@ link register save eliminated.
+  88 0000 1EFF2FE1 		bx	lr
+  90              		.section	.text.mcu_gpio_init,"ax",%progbits
+  91              		.align	2
+  92              		.syntax unified
+  93              		.arm
+  94              		.fpu neon
+  96              	mcu_gpio_init:
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99 0000 10402DE9 		push	{r4, lr}
+ 100 0004 0030A0E3 		mov	r3, #0
+ 101 0008 0120A0E3 		mov	r2, #1
+ 102 000c 0210A0E3 		mov	r1, #2
+ 103 0010 3700A0E3 		mov	r0, #55
+ 104 0014 FEFFFFEB 		bl	hal_gpio_init_in
+ 105 0018 0030A0E3 		mov	r3, #0
+ 106 001c 0320A0E3 		mov	r2, #3
+ 107 0020 0210A0E3 		mov	r1, #2
+ 108 0024 3600A0E3 		mov	r0, #54
+ 109 0028 FEFFFFEB 		bl	hal_gpio_init_in
+ 110 002c 0030A0E3 		mov	r3, #0
+ 111 0030 0120A0E3 		mov	r2, #1
+ 112 0034 0210A0E3 		mov	r1, #2
+ 113 0038 0400A0E3 		mov	r0, #4
+ 114 003c 1040BDE8 		pop	{r4, lr}
+ 115 0040 FEFFFFEA 		b	hal_gpio_init_in
+ 117              		.section	.text.sleep_handler,"ax",%progbits
+ 118              		.align	2
+ 119              		.syntax unified
+ 120              		.arm
+ 121              		.fpu neon
+ 123              	sleep_handler:
+ 124              		@ args = 0, pretend = 0, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ 126              		@ link register save eliminated.
+ 127 0000 1EFF2FE1 		bx	lr
+ARM GAS  /tmp/ccx3SrwV.s 			page 3
+
+
+ 129              		.section	.text.HardFault_Handler,"ax",%progbits
+ 130              		.align	2
+ 131              		.global	HardFault_Handler
+ 132              		.syntax unified
+ 133              		.arm
+ 134              		.fpu neon
+ 136              	HardFault_Handler:
+ 137              		@ Volatile: function does not return.
+ 138              		@ args = 0, pretend = 0, frame = 0
+ 139              		@ frame_needed = 0, uses_anonymous_args = 0
+ 140 0000 10402DE9 		push	{r4, lr}
+ 141 0004 2C009FE5 		ldr	r0, .L16
+ 142 0008 FEFFFFEB 		bl	hal_trace_print_var
+ 143 000c 28009FE5 		ldr	r0, .L16+4
+ 144 0010 FEFFFFEB 		bl	hal_trace_print_var
+ 145 0014 24009FE5 		ldr	r0, .L16+8
+ 146 0018 FEFFFFEB 		bl	hal_trace_print_var
+ 147 001c 18009FE5 		ldr	r0, .L16+4
+ 148 0020 FEFFFFEB 		bl	hal_trace_print_var
+ 149 0024 18009FE5 		ldr	r0, .L16+12
+ 150 0028 FEFFFFEB 		bl	hal_trace_print_var
+ 151 002c 08009FE5 		ldr	r0, .L16+4
+ 152 0030 FEFFFFEB 		bl	hal_trace_print_var
+ 153              	.L14:
+ 154 0034 FEFFFFEA 		b	.L14
+ 155              	.L17:
+ 156              		.align	2
+ 157              	.L16:
+ 158 0038 00000000 		.word	.LANCHOR0
+ 159 003c 16000000 		.word	.LANCHOR0+22
+ 160 0040 1B000000 		.word	.LANCHOR0+27
+ 161 0044 3C000000 		.word	.LANCHOR0+60
+ 163              		.section	.text.hal_mcu_critical_section_begin,"ax",%progbits
+ 164              		.align	2
+ 165              		.global	hal_mcu_critical_section_begin
+ 166              		.syntax unified
+ 167              		.arm
+ 168              		.fpu neon
+ 170              	hal_mcu_critical_section_begin:
+ 171              		@ args = 0, pretend = 0, frame = 0
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173              		@ link register save eliminated.
+ 174 0000 1EFF2FE1 		bx	lr
+ 176              		.section	.text.hal_mcu_critical_section_end,"ax",%progbits
+ 177              		.align	2
+ 178              		.global	hal_mcu_critical_section_end
+ 179              		.syntax unified
+ 180              		.arm
+ 181              		.fpu neon
+ 183              	hal_mcu_critical_section_end:
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              		@ link register save eliminated.
+ 187 0000 1EFF2FE1 		bx	lr
+ 189              		.section	.text.hal_mcu_disable_irq,"ax",%progbits
+ 190              		.align	2
+ 191              		.global	hal_mcu_disable_irq
+ARM GAS  /tmp/ccx3SrwV.s 			page 4
+
+
+ 192              		.syntax unified
+ 193              		.arm
+ 194              		.fpu neon
+ 196              	hal_mcu_disable_irq:
+ 197              		@ args = 0, pretend = 0, frame = 0
+ 198              		@ frame_needed = 0, uses_anonymous_args = 0
+ 199              		@ link register save eliminated.
+ 200 0000 1EFF2FE1 		bx	lr
+ 202              		.section	.text.hal_mcu_enable_irq,"ax",%progbits
+ 203              		.align	2
+ 204              		.global	hal_mcu_enable_irq
+ 205              		.syntax unified
+ 206              		.arm
+ 207              		.fpu neon
+ 209              	hal_mcu_enable_irq:
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212              		@ link register save eliminated.
+ 213 0000 1EFF2FE1 		bx	lr
+ 215              		.section	.text.hal_mcu_reset,"ax",%progbits
+ 216              		.align	2
+ 217              		.global	hal_mcu_reset
+ 218              		.syntax unified
+ 219              		.arm
+ 220              		.fpu neon
+ 222              	hal_mcu_reset:
+ 223              		@ args = 0, pretend = 0, frame = 0
+ 224              		@ frame_needed = 0, uses_anonymous_args = 0
+ 225              		@ link register save eliminated.
+ 226 0000 1EFF2FE1 		bx	lr
+ 228              		.section	.text.hal_mcu_init,"ax",%progbits
+ 229              		.align	2
+ 230              		.global	hal_mcu_init
+ 231              		.syntax unified
+ 232              		.arm
+ 233              		.fpu neon
+ 235              	hal_mcu_init:
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+ 238 0000 10402DE9 		push	{r4, lr}
+ 239 0004 FEFFFFEB 		bl	hal_watchdog_init
+ 240 0008 FEFFFFEB 		bl	trace_uart_init
+ 241 000c FEFFFFEB 		bl	mcu_gpio_init
+ 242 0010 0000A0E3 		mov	r0, #0
+ 243 0014 FEFFFFEB 		bl	hal_lp_timer_init
+ 244 0018 0100A0E3 		mov	r0, #1
+ 245 001c FEFFFFEB 		bl	hal_lp_timer_init
+ 246 0020 3130A0E3 		mov	r3, #49
+ 247 0024 3320A0E3 		mov	r2, #51
+ 248 0028 3210A0E3 		mov	r1, #50
+ 249 002c 0100A0E3 		mov	r0, #1
+ 250 0030 FEFFFFEB 		bl	hal_spi_init
+ 251 0034 1040BDE8 		pop	{r4, lr}
+ 252 0038 FEFFFFEA 		b	hal_rtc_init
+ 254              		.section	.rodata
+ 255              		.set	.LANCHOR0,. + 0
+ 256              	.LC0:
+ARM GAS  /tmp/ccx3SrwV.s 			page 5
+
+
+ 257 0000 1B5B303B 		.ascii	"\033[0;31mERROR: \033[0;31m\000"
+ 257      33316D45 
+ 257      52524F52 
+ 257      3A201B5B 
+ 257      303B3331 
+ 258              	.LC1:
+ 259 0016 1B5B306D 		.ascii	"\033[0m\000"
+ 259      00
+ 260              	.LC2:
+ 261 001b 1B5B303B 		.ascii	"\033[0;31mERROR: HARDFAULT_Handler\012\000"
+ 261      33316D45 
+ 261      52524F52 
+ 261      3A204841 
+ 261      52444641 
+ 262              	.LC3:
+ 263 003c 1B5B303B 		.ascii	"\033[0;31mERROR: \033[0m\000"
+ 263      33316D45 
+ 263      52524F52 
+ 263      3A201B5B 
+ 263      306D00
+ 264              		.ident	"GCC: (crosstool-NG 1.24.0) 8.3.0"
+ 265              		.section	.note.GNU-stack,"",%progbits
+ARM GAS  /tmp/ccx3SrwV.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 smtc_hal_mcu.c
+     /tmp/ccx3SrwV.s:13     .text.hal_mcu_wait_us:0000000000000000 $a
+     /tmp/ccx3SrwV.s:20     .text.hal_mcu_wait_us:0000000000000000 hal_mcu_wait_us
+     /tmp/ccx3SrwV.s:36     .text.hal_mcu_set_sleep_for_ms:0000000000000000 $a
+     /tmp/ccx3SrwV.s:42     .text.hal_mcu_set_sleep_for_ms:0000000000000000 hal_mcu_set_sleep_for_ms
+     /tmp/ccx3SrwV.s:53     .text.SysTick_Handler:0000000000000000 $a
+     /tmp/ccx3SrwV.s:59     .text.SysTick_Handler:0000000000000000 SysTick_Handler
+     /tmp/ccx3SrwV.s:66     .text.HAL_MspInit:0000000000000000 $a
+     /tmp/ccx3SrwV.s:72     .text.HAL_MspInit:0000000000000000 HAL_MspInit
+     /tmp/ccx3SrwV.s:79     .text.system_clock_config:0000000000000000 $a
+     /tmp/ccx3SrwV.s:84     .text.system_clock_config:0000000000000000 system_clock_config
+     /tmp/ccx3SrwV.s:91     .text.mcu_gpio_init:0000000000000000 $a
+     /tmp/ccx3SrwV.s:96     .text.mcu_gpio_init:0000000000000000 mcu_gpio_init
+     /tmp/ccx3SrwV.s:118    .text.sleep_handler:0000000000000000 $a
+     /tmp/ccx3SrwV.s:123    .text.sleep_handler:0000000000000000 sleep_handler
+     /tmp/ccx3SrwV.s:130    .text.HardFault_Handler:0000000000000000 $a
+     /tmp/ccx3SrwV.s:136    .text.HardFault_Handler:0000000000000000 HardFault_Handler
+     /tmp/ccx3SrwV.s:158    .text.HardFault_Handler:0000000000000038 $d
+     /tmp/ccx3SrwV.s:164    .text.hal_mcu_critical_section_begin:0000000000000000 $a
+     /tmp/ccx3SrwV.s:170    .text.hal_mcu_critical_section_begin:0000000000000000 hal_mcu_critical_section_begin
+     /tmp/ccx3SrwV.s:177    .text.hal_mcu_critical_section_end:0000000000000000 $a
+     /tmp/ccx3SrwV.s:183    .text.hal_mcu_critical_section_end:0000000000000000 hal_mcu_critical_section_end
+     /tmp/ccx3SrwV.s:190    .text.hal_mcu_disable_irq:0000000000000000 $a
+     /tmp/ccx3SrwV.s:196    .text.hal_mcu_disable_irq:0000000000000000 hal_mcu_disable_irq
+     /tmp/ccx3SrwV.s:203    .text.hal_mcu_enable_irq:0000000000000000 $a
+     /tmp/ccx3SrwV.s:209    .text.hal_mcu_enable_irq:0000000000000000 hal_mcu_enable_irq
+     /tmp/ccx3SrwV.s:216    .text.hal_mcu_reset:0000000000000000 $a
+     /tmp/ccx3SrwV.s:222    .text.hal_mcu_reset:0000000000000000 hal_mcu_reset
+     /tmp/ccx3SrwV.s:229    .text.hal_mcu_init:0000000000000000 $a
+     /tmp/ccx3SrwV.s:235    .text.hal_mcu_init:0000000000000000 hal_mcu_init
+
+UNDEFINED SYMBOLS
+usleep
+hal_rtc_wakeup_timer_set_ms
+hal_rtc_wakeup_timer_stop
+hal_gpio_init_in
+hal_trace_print_var
+hal_watchdog_init
+trace_uart_init
+hal_lp_timer_init
+hal_spi_init
+hal_rtc_init

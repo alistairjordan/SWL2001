@@ -1,0 +1,9 @@
+sx127x_hal.c:81:19:sx127x_hal_get_radio_id	0	static
+sx127x_hal.c:92:6:sx127x_hal_dio_irq_attach	8	static
+sx127x_hal.c:114:21:sx127x_hal_write	24	static
+sx127x_hal.c:134:21:sx127x_hal_read	24	static
+sx127x_hal.c:154:6:sx127x_hal_reset	8	static
+sx127x_hal.c:175:10:sx127x_hal_get_dio_1_pin_state	0	static
+sx127x_hal.c:180:21:sx127x_hal_timer_start	8	static
+sx127x_hal.c:190:21:sx127x_hal_timer_stop	8	static
+sx127x_hal.c:197:6:sx127x_hal_timer_is_started	0	static

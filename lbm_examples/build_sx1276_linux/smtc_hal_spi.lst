@@ -1,0 +1,158 @@
+ARM GAS  /tmp/ccEjb7pB.s 			page 1
+
+
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 23, 1
+   4              		.eabi_attribute 24, 1
+   5              		.eabi_attribute 25, 1
+   6              		.eabi_attribute 26, 2
+   7              		.eabi_attribute 30, 4
+   8              		.eabi_attribute 34, 1
+   9              		.eabi_attribute 18, 4
+  10              		.file	"smtc_hal_spi.c"
+  11              		.text
+  12              		.section	.text.hal_spi_init,"ax",%progbits
+  13              		.align	2
+  14              		.global	hal_spi_init
+  15              		.arch armv7-a
+  16              		.syntax unified
+  17              		.arm
+  18              		.fpu neon
+  20              	hal_spi_init:
+  21              		@ args = 0, pretend = 0, frame = 0
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23 0000 40309FE5 		ldr	r3, .L3
+  24 0004 40209FE5 		ldr	r2, .L3+4
+  25 0008 10402DE9 		push	{r4, lr}
+  26 000c 0040A0E1 		mov	r4, r0
+  27 0010 042083E5 		str	r2, [r3, #4]
+  28 0014 0020A0E3 		mov	r2, #0
+  29 0018 30009FE5 		ldr	r0, .L3+8
+  30 001c 014044E2 		sub	r4, r4, #1
+  31 0020 B820C3E1 		strh	r2, [r3, #8]	@ movhi
+  32 0024 022BA0E3 		mov	r2, #2048
+  33 0028 B020C3E1 		strh	r2, [r3]	@ movhi
+  34 002c 0E0093E8 		ldm	r3, {r1, r2, r3}
+  35 0030 FEFFFFEB 		bl	spi_open
+  36 0034 1420A0E3 		mov	r2, #20
+  37 0038 14309FE5 		ldr	r3, .L3+12
+  38 003c 923424E0 		mla	r4, r2, r4, r3
+  39 0040 100084E5 		str	r0, [r4, #16]
+  40 0044 1080BDE8 		pop	{r4, pc}
+  41              	.L4:
+  42              		.align	2
+  43              	.L3:
+  44 0048 00000000 		.word	spi_config
+  45 004c 40420F00 		.word	1000000
+  46 0050 00000000 		.word	.LC0
+  47 0054 00000000 		.word	.LANCHOR0
+  49              		.section	.text.hal_spi_de_init,"ax",%progbits
+  50              		.align	2
+  51              		.global	hal_spi_de_init
+  52              		.syntax unified
+  53              		.arm
+  54              		.fpu neon
+  56              	hal_spi_de_init:
+  57              		@ args = 0, pretend = 0, frame = 0
+  58              		@ frame_needed = 0, uses_anonymous_args = 0
+  59              		@ link register save eliminated.
+  60 0000 10309FE5 		ldr	r3, .L6
+ARM GAS  /tmp/ccEjb7pB.s 			page 2
+
+
+  61 0004 010040E2 		sub	r0, r0, #1
+  62 0008 1420A0E3 		mov	r2, #20
+  63 000c 923020E0 		mla	r0, r2, r0, r3
+  64 0010 100090E5 		ldr	r0, [r0, #16]
+  65 0014 FEFFFFEA 		b	spi_close
+  66              	.L7:
+  67              		.align	2
+  68              	.L6:
+  69 0018 00000000 		.word	.LANCHOR0
+  71              		.section	.text.hal_spi_in_out,"ax",%progbits
+  72              		.align	2
+  73              		.global	hal_spi_in_out
+  74              		.syntax unified
+  75              		.arm
+  76              		.fpu neon
+  78              	hal_spi_in_out:
+  79              		@ args = 0, pretend = 0, frame = 8
+  80              		@ frame_needed = 0, uses_anonymous_args = 0
+  81 0000 1F402DE9 		push	{r0, r1, r2, r3, r4, lr}
+  82 0004 010040E2 		sub	r0, r0, #1
+  83 0008 3C309FE5 		ldr	r3, .L10
+  84 000c 1420A0E3 		mov	r2, #20
+  85 0010 0810CDE5 		strb	r1, [sp, #8]
+  86 0014 08108DE2 		add	r1, sp, #8
+  87 0018 923020E0 		mla	r0, r2, r0, r3
+  88 001c 0120A0E3 		mov	r2, #1
+  89 0020 0C308DE2 		add	r3, sp, #12
+  90 0024 00208DE5 		str	r2, [sp]
+  91 0028 100090E5 		ldr	r0, [r0, #16]
+  92 002c FEFFFFEB 		bl	spi_xfer
+  93 0030 0C20DDE5 		ldrb	r2, [sp, #12]	@ zero_extendqisi2
+  94 0034 0810DDE5 		ldrb	r1, [sp, #8]	@ zero_extendqisi2
+  95 0038 10009FE5 		ldr	r0, .L10+4
+  96 003c FEFFFFEB 		bl	printf
+  97 0040 0C00DDE5 		ldrb	r0, [sp, #12]	@ zero_extendqisi2
+  98 0044 14D08DE2 		add	sp, sp, #20
+  99              		@ sp needed
+ 100 0048 04F09DE4 		ldr	pc, [sp], #4
+ 101              	.L11:
+ 102              		.align	2
+ 103              	.L10:
+ 104 004c 00000000 		.word	.LANCHOR0
+ 105 0050 00000000 		.word	.LC1
+ 107              		.comm	spi_config,12,4
+ 108              		.section	.data.spi_periph,"aw"
+ 109              		.align	2
+ 110              		.set	.LANCHOR0,. + 0
+ 113              	spi_periph:
+ 114 0000 00       		.byte	0
+ 115 0001 00       		.byte	0
+ 116 0002 0000     		.space	2
+ 117 0004 FFFFFFFF 		.word	-1
+ 118 0008 FFFFFFFF 		.word	-1
+ 119 000c FFFFFFFF 		.word	-1
+ 120 0010 FFFFFFFF 		.word	-1
+ 121              		.section	.rodata.hal_spi_in_out.str1.1,"aMS",%progbits,1
+ 122              	.LC1:
+ARM GAS  /tmp/ccEjb7pB.s 			page 3
+
+
+ 123 0000 74783A20 		.ascii	"tx: %x, rx: %x\011\000"
+ 123      25782C20 
+ 123      72783A20 
+ 123      25780900 
+ 124              		.section	.rodata.hal_spi_init.str1.1,"aMS",%progbits,1
+ 125              	.LC0:
+ 126 0000 2F646576 		.ascii	"/dev/spidev0.0\000"
+ 126      2F737069 
+ 126      64657630 
+ 126      2E3000
+ 127              		.ident	"GCC: (crosstool-NG 1.24.0) 8.3.0"
+ 128              		.section	.note.GNU-stack,"",%progbits
+ARM GAS  /tmp/ccEjb7pB.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 smtc_hal_spi.c
+     /tmp/ccEjb7pB.s:13     .text.hal_spi_init:0000000000000000 $a
+     /tmp/ccEjb7pB.s:20     .text.hal_spi_init:0000000000000000 hal_spi_init
+     /tmp/ccEjb7pB.s:44     .text.hal_spi_init:0000000000000048 $d
+                            *COM*:000000000000000c spi_config
+     /tmp/ccEjb7pB.s:50     .text.hal_spi_de_init:0000000000000000 $a
+     /tmp/ccEjb7pB.s:56     .text.hal_spi_de_init:0000000000000000 hal_spi_de_init
+     /tmp/ccEjb7pB.s:69     .text.hal_spi_de_init:0000000000000018 $d
+     /tmp/ccEjb7pB.s:72     .text.hal_spi_in_out:0000000000000000 $a
+     /tmp/ccEjb7pB.s:78     .text.hal_spi_in_out:0000000000000000 hal_spi_in_out
+     /tmp/ccEjb7pB.s:104    .text.hal_spi_in_out:000000000000004c $d
+     /tmp/ccEjb7pB.s:109    .data.spi_periph:0000000000000000 $d
+     /tmp/ccEjb7pB.s:113    .data.spi_periph:0000000000000000 spi_periph
+
+UNDEFINED SYMBOLS
+spi_open
+spi_close
+spi_xfer
+printf

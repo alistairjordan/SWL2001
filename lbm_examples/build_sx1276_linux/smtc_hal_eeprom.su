@@ -1,0 +1,2 @@
+smtc_hal_eeprom.c:79:6:hal_eeprom_write_buffer	24	static
+smtc_hal_eeprom.c:100:6:hal_eeprom_read_buffer	24	static

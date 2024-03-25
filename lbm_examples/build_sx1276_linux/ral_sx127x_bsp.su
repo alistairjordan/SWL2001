@@ -1,0 +1,2 @@
+ral_sx127x_bsp.c:77:6:ral_sx127x_bsp_get_tx_cfg	16	static
+ral_sx127x_bsp.c:173:6:ral_sx127x_bsp_get_ocp_value	0	static

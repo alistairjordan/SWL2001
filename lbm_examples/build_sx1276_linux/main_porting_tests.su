@@ -1,0 +1,8 @@
+main_porting_tests.c:1567:13:timer_irq_callback	8	static
+ralf.h:102:28:ralf_setup_lora.constprop	0	static
+ral.h:402:28:ral_set_dio_irq_params.constprop	0	static
+main_porting_tests.c:1507:13:radio_rx_irq_callback	16	static
+main_porting_tests.c:433:13:reset_init_radio	16	static
+main_porting_tests.c:1484:13:radio_tx_irq_callback	8	static
+main_porting_tests.c:1538:13:radio_irq_callback_get_time_in_s	16	static
+main_porting_tests.c:232:6:main_porting_tests	16	static

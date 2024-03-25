@@ -65,16 +65,16 @@ extern "C" {
 #define DEBUG_UART_RX           PA_3
 
 //Radio specific pinout and peripherals
-#define RADIO_NRST              PA_0
+#define RADIO_NRST              NC//PA_0
 #define RADIO_SPI_MOSI          PA_7
 #define RADIO_SPI_MISO          PA_6
 #define RADIO_SPI_SCLK          PA_5
 #if defined( SX1272 ) || defined( SX1276 )
-#define RADIO_NSS               PB_6
+#define RADIO_NSS               NC//NCPB_6
 #define RADIO_DIO_0             PA_10
 #define RADIO_DIO_1             PB_3
 #define RADIO_DIO_2             PB_5
-#define RADIO_ANTENNA_SWITCH    PC_1
+#define RADIO_ANTENNA_SWITCH    NC//PC_1
 #else
 #define RADIO_NSS               PA_8
 #define RADIO_DIOX              PB_4
@@ -102,7 +102,7 @@ extern "C" {
 #endif
 
 
-#define EXTI_BUTTON             PC_13
+#define EXTI_BUTTON             NC//PC_13
 
 //Hw modem specific pinout
 #define HW_MODEM_COMMAND_PIN    PC_6

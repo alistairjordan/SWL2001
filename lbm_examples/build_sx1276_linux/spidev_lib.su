@@ -1,0 +1,5 @@
+spidev_lib.c:39:5:spi_open	32	static
+spidev_lib.c:76:5:spi_close	0	static
+spidev_lib.c:80:5:spi_xfer	56	static
+spidev_lib.c:91:5:spi_read	48	static
+spidev_lib.c:102:5:spi_write	48	static

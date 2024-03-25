@@ -1,0 +1,172 @@
+ARM GAS  /tmp/cc5S2Guc.s 			page 1
+
+
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 23, 1
+   4              		.eabi_attribute 24, 1
+   5              		.eabi_attribute 25, 1
+   6              		.eabi_attribute 26, 2
+   7              		.eabi_attribute 30, 4
+   8              		.eabi_attribute 34, 1
+   9              		.eabi_attribute 18, 4
+  10              		.file	"smtc_hal_rtc.c"
+  11              		.text
+  12              		.section	.text.hal_rtc_init,"ax",%progbits
+  13              		.align	2
+  14              		.global	hal_rtc_init
+  15              		.arch armv7-a
+  16              		.syntax unified
+  17              		.arm
+  18              		.fpu neon
+  20              	hal_rtc_init:
+  21              		@ args = 0, pretend = 0, frame = 0
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23              		@ link register save eliminated.
+  24 0000 1EFF2FE1 		bx	lr
+  26              		.section	.text.hal_rtc_get_time_s,"ax",%progbits
+  27              		.align	2
+  28              		.global	hal_rtc_get_time_s
+  29              		.syntax unified
+  30              		.arm
+  31              		.fpu neon
+  33              	hal_rtc_get_time_s:
+  34              		@ args = 0, pretend = 0, frame = 8
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36 0000 07402DE9 		push	{r0, r1, r2, lr}
+  37 0004 0100A0E3 		mov	r0, #1
+  38 0008 0D10A0E1 		mov	r1, sp
+  39 000c FEFFFFEB 		bl	clock_gettime
+  40 0010 00009DE5 		ldr	r0, [sp]
+  41 0014 0CD08DE2 		add	sp, sp, #12
+  42              		@ sp needed
+  43 0018 04F09DE4 		ldr	pc, [sp], #4
+  45              		.section	.text.hal_rtc_get_time_100us,"ax",%progbits
+  46              		.align	2
+  47              		.global	hal_rtc_get_time_100us
+  48              		.syntax unified
+  49              		.arm
+  50              		.fpu neon
+  52              	hal_rtc_get_time_100us:
+  53              		@ args = 0, pretend = 0, frame = 8
+  54              		@ frame_needed = 0, uses_anonymous_args = 0
+  55 0000 07402DE9 		push	{r0, r1, r2, lr}
+  56 0004 0100A0E3 		mov	r0, #1
+  57 0008 0D10A0E1 		mov	r1, sp
+  58 000c FEFFFFEB 		bl	clock_gettime
+  59 0010 04009DE5 		ldr	r0, [sp, #4]
+  60 0014 1C209FE5 		ldr	r2, .L6
+  61 0018 9022C3E0 		smull	r2, r3, r0, r2
+  62 001c C00FA0E1 		asr	r0, r0, #31
+ARM GAS  /tmp/cc5S2Guc.s 			page 2
+
+
+  63 0020 00209DE5 		ldr	r2, [sp]
+  64 0024 C33660E0 		rsb	r3, r0, r3, asr #13
+  65 0028 100702E3 		movw	r0, #10000
+  66 002c 903220E0 		mla	r0, r0, r2, r3
+  67 0030 0CD08DE2 		add	sp, sp, #12
+  68              		@ sp needed
+  69 0034 04F09DE4 		ldr	pc, [sp], #4
+  70              	.L7:
+  71              		.align	2
+  72              	.L6:
+  73 0038 89B5F814 		.word	351843721
+  75              		.section	.text.hal_rtc_get_time_ms,"ax",%progbits
+  76              		.align	2
+  77              		.global	hal_rtc_get_time_ms
+  78              		.syntax unified
+  79              		.arm
+  80              		.fpu neon
+  82              	hal_rtc_get_time_ms:
+  83              		@ args = 0, pretend = 0, frame = 8
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+  85 0000 07402DE9 		push	{r0, r1, r2, lr}
+  86 0004 0100A0E3 		mov	r0, #1
+  87 0008 0D10A0E1 		mov	r1, sp
+  88 000c FEFFFFEB 		bl	clock_gettime
+  89 0010 04009DE5 		ldr	r0, [sp, #4]
+  90 0014 1C209FE5 		ldr	r2, .L10
+  91 0018 9022C3E0 		smull	r2, r3, r0, r2
+  92 001c C00FA0E1 		asr	r0, r0, #31
+  93 0020 00209DE5 		ldr	r2, [sp]
+  94 0024 433960E0 		rsb	r3, r0, r3, asr #18
+  95 0028 FA0FA0E3 		mov	r0, #1000
+  96 002c 903220E0 		mla	r0, r0, r2, r3
+  97 0030 0CD08DE2 		add	sp, sp, #12
+  98              		@ sp needed
+  99 0034 04F09DE4 		ldr	pc, [sp], #4
+ 100              	.L11:
+ 101              		.align	2
+ 102              	.L10:
+ 103 0038 83DE1B43 		.word	1125899907
+ 105              		.section	.text.hal_rtc_wakeup_timer_set_ms,"ax",%progbits
+ 106              		.align	2
+ 107              		.global	hal_rtc_wakeup_timer_set_ms
+ 108              		.syntax unified
+ 109              		.arm
+ 110              		.fpu neon
+ 112              	hal_rtc_wakeup_timer_set_ms:
+ 113              		@ args = 0, pretend = 0, frame = 0
+ 114              		@ frame_needed = 0, uses_anonymous_args = 0
+ 115 0000 10402DE9 		push	{r4, lr}
+ 116 0004 0010A0E1 		mov	r1, r0
+ 117 0008 0040A0E1 		mov	r4, r0
+ 118 000c 10009FE5 		ldr	r0, .L14
+ 119 0010 FEFFFFEB 		bl	printf
+ 120 0014 FA0FA0E3 		mov	r0, #1000
+ 121 0018 900400E0 		mul	r0, r0, r4
+ 122 001c 1040BDE8 		pop	{r4, lr}
+ 123 0020 FEFFFFEA 		b	usleep
+ARM GAS  /tmp/cc5S2Guc.s 			page 3
+
+
+ 124              	.L15:
+ 125              		.align	2
+ 126              	.L14:
+ 127 0024 00000000 		.word	.LC0
+ 129              		.section	.text.hal_rtc_wakeup_timer_stop,"ax",%progbits
+ 130              		.align	2
+ 131              		.global	hal_rtc_wakeup_timer_stop
+ 132              		.syntax unified
+ 133              		.arm
+ 134              		.fpu neon
+ 136              	hal_rtc_wakeup_timer_stop:
+ 137              		@ args = 0, pretend = 0, frame = 0
+ 138              		@ frame_needed = 0, uses_anonymous_args = 0
+ 139              		@ link register save eliminated.
+ 140 0000 1EFF2FE1 		bx	lr
+ 142              		.section	.rodata.hal_rtc_wakeup_timer_set_ms.str1.1,"aMS",%progbits,1
+ 143              	.LC0:
+ 144 0000 536C6565 		.ascii	"Sleeping for %dms\000"
+ 144      70696E67 
+ 144      20666F72 
+ 144      2025646D 
+ 144      7300
+ 145              		.ident	"GCC: (crosstool-NG 1.24.0) 8.3.0"
+ 146              		.section	.note.GNU-stack,"",%progbits
+ARM GAS  /tmp/cc5S2Guc.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 smtc_hal_rtc.c
+     /tmp/cc5S2Guc.s:13     .text.hal_rtc_init:0000000000000000 $a
+     /tmp/cc5S2Guc.s:20     .text.hal_rtc_init:0000000000000000 hal_rtc_init
+     /tmp/cc5S2Guc.s:27     .text.hal_rtc_get_time_s:0000000000000000 $a
+     /tmp/cc5S2Guc.s:33     .text.hal_rtc_get_time_s:0000000000000000 hal_rtc_get_time_s
+     /tmp/cc5S2Guc.s:46     .text.hal_rtc_get_time_100us:0000000000000000 $a
+     /tmp/cc5S2Guc.s:52     .text.hal_rtc_get_time_100us:0000000000000000 hal_rtc_get_time_100us
+     /tmp/cc5S2Guc.s:73     .text.hal_rtc_get_time_100us:0000000000000038 $d
+     /tmp/cc5S2Guc.s:76     .text.hal_rtc_get_time_ms:0000000000000000 $a
+     /tmp/cc5S2Guc.s:82     .text.hal_rtc_get_time_ms:0000000000000000 hal_rtc_get_time_ms
+     /tmp/cc5S2Guc.s:103    .text.hal_rtc_get_time_ms:0000000000000038 $d
+     /tmp/cc5S2Guc.s:106    .text.hal_rtc_wakeup_timer_set_ms:0000000000000000 $a
+     /tmp/cc5S2Guc.s:112    .text.hal_rtc_wakeup_timer_set_ms:0000000000000000 hal_rtc_wakeup_timer_set_ms
+     /tmp/cc5S2Guc.s:127    .text.hal_rtc_wakeup_timer_set_ms:0000000000000024 $d
+     /tmp/cc5S2Guc.s:130    .text.hal_rtc_wakeup_timer_stop:0000000000000000 $a
+     /tmp/cc5S2Guc.s:136    .text.hal_rtc_wakeup_timer_stop:0000000000000000 hal_rtc_wakeup_timer_stop
+
+UNDEFINED SYMBOLS
+clock_gettime
+printf
+usleep

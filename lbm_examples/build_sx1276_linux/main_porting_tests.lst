@@ -1,0 +1,662 @@
+ARM GAS  /tmp/cchB3JPN.s 			page 1
+
+
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 23, 1
+   4              		.eabi_attribute 24, 1
+   5              		.eabi_attribute 25, 1
+   6              		.eabi_attribute 26, 2
+   7              		.eabi_attribute 30, 4
+   8              		.eabi_attribute 34, 1
+   9              		.eabi_attribute 18, 4
+  10              		.file	"main_porting_tests.c"
+  11              		.text
+  12              		.section	.text.timer_irq_callback,"ax",%progbits
+  13              		.align	2
+  14              		.arch armv7-a
+  15              		.syntax unified
+  16              		.arm
+  17              		.fpu neon
+  19              	timer_irq_callback:
+  20              		@ args = 0, pretend = 0, frame = 0
+  21              		@ frame_needed = 0, uses_anonymous_args = 0
+  22 0000 10402DE9 		push	{r4, lr}
+  23 0004 FEFFFFEB 		bl	smtc_modem_hal_get_time_in_ms
+  24 0008 0120A0E3 		mov	r2, #1
+  25 000c 0C309FE5 		ldr	r3, .L3
+  26 0010 000083E5 		str	r0, [r3]
+  27 0014 08309FE5 		ldr	r3, .L3+4
+  28 0018 0020C3E5 		strb	r2, [r3]
+  29 001c 1080BDE8 		pop	{r4, pc}
+  30              	.L4:
+  31              		.align	2
+  32              	.L3:
+  33 0020 00000000 		.word	.LANCHOR0
+  34 0024 00000000 		.word	.LANCHOR1
+  36              		.section	.text.ralf_setup_lora.constprop.2,"ax",%progbits
+  37              		.align	2
+  38              		.syntax unified
+  39              		.arm
+  40              		.fpu neon
+  42              	ralf_setup_lora.constprop.2:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 0010A0E1 		mov	r1, r0
+  47 0004 00009FE5 		ldr	r0, .L6
+  48 0008 FEFFFFEA 		b	ralf_sx127x_setup_lora
+  49              	.L7:
+  50              		.align	2
+  51              	.L6:
+  52 000c 00000000 		.word	.LANCHOR2
+  54              		.section	.text.ral_set_dio_irq_params.constprop.3,"ax",%progbits
+  55              		.align	2
+  56              		.syntax unified
+  57              		.arm
+  58              		.fpu neon
+  60              	ral_set_dio_irq_params.constprop.3:
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cchB3JPN.s 			page 2
+
+
+  63              		@ link register save eliminated.
+  64 0000 0010A0E1 		mov	r1, r0
+  65 0004 00009FE5 		ldr	r0, .L9
+  66 0008 FEFFFFEA 		b	ral_sx127x_set_dio_irq_params
+  67              	.L10:
+  68              		.align	2
+  69              	.L9:
+  70 000c 00000000 		.word	.LANCHOR3
+  72              		.section	.text.radio_rx_irq_callback,"ax",%progbits
+  73              		.align	2
+  74              		.syntax unified
+  75              		.arm
+  76              		.fpu neon
+  78              	radio_rx_irq_callback:
+  79              		@ args = 0, pretend = 0, frame = 8
+  80              		@ frame_needed = 0, uses_anonymous_args = 0
+  81 0000 07402DE9 		push	{r0, r1, r2, lr}
+  82 0004 0030A0E3 		mov	r3, #0
+  83 0008 B630CDE1 		strh	r3, [sp, #6]	@ movhi
+  84 000c FEFFFFEB 		bl	smtc_modem_hal_get_time_in_ms
+  85 0010 94309FE5 		ldr	r3, .L25
+  86 0014 06108DE2 		add	r1, sp, #6
+  87 0018 0120A0E3 		mov	r2, #1
+  88 001c 000083E5 		str	r0, [r3]
+  89 0020 88309FE5 		ldr	r3, .L25+4
+  90 0024 88009FE5 		ldr	r0, .L25+8
+  91 0028 0020C3E5 		strb	r2, [r3]
+  92 002c FEFFFFEB 		bl	ral_sx127x_get_irq_status
+  93 0030 000050E3 		cmp	r0, #0
+  94 0034 0700000A 		beq	.L12
+  95 0038 78009FE5 		ldr	r0, .L25+12
+  96 003c FEFFFFEB 		bl	hal_trace_print_var
+  97 0040 74009FE5 		ldr	r0, .L25+16
+  98 0044 FEFFFFEB 		bl	hal_trace_print_var
+  99 0048 70009FE5 		ldr	r0, .L25+20
+ 100 004c FEFFFFEB 		bl	hal_trace_print_var
+ 101 0050 6C009FE5 		ldr	r0, .L25+24
+ 102 0054 FEFFFFEB 		bl	hal_trace_print_var
+ 103              	.L12:
+ 104 0058 B630DDE1 		ldrh	r3, [sp, #6]
+ 105 005c FE1F01E3 		movw	r1, #8190
+ 106 0060 4C009FE5 		ldr	r0, .L25+8
+ 107 0064 080013E3 		tst	r3, #8
+ 108 0068 58309F15 		ldrne	r3, .L25+28
+ 109 006c 0120A013 		movne	r2, #1
+ 110 0070 0020C315 		strbne	r2, [r3]
+ 111 0074 FEFFFFEB 		bl	ral_sx127x_clear_irq_status
+ 112 0078 000050E3 		cmp	r0, #0
+ 113 007c 0700000A 		beq	.L14
+ 114 0080 30009FE5 		ldr	r0, .L25+12
+ 115 0084 FEFFFFEB 		bl	hal_trace_print_var
+ 116 0088 2C009FE5 		ldr	r0, .L25+16
+ 117 008c FEFFFFEB 		bl	hal_trace_print_var
+ 118 0090 34009FE5 		ldr	r0, .L25+32
+ 119 0094 FEFFFFEB 		bl	hal_trace_print_var
+ 120 0098 24009FE5 		ldr	r0, .L25+24
+ 121 009c FEFFFFEB 		bl	hal_trace_print_var
+ARM GAS  /tmp/cchB3JPN.s 			page 3
+
+
+ 122              	.L14:
+ 123 00a0 FEFFFFEB 		bl	smtc_modem_hal_stop_radio_tcxo
+ 124 00a4 0CD08DE2 		add	sp, sp, #12
+ 125              		@ sp needed
+ 126 00a8 04F09DE4 		ldr	pc, [sp], #4
+ 127              	.L26:
+ 128              		.align	2
+ 129              	.L25:
+ 130 00ac 00000000 		.word	.LANCHOR0
+ 131 00b0 00000000 		.word	.LANCHOR4
+ 132 00b4 00000000 		.word	.LANCHOR3
+ 133 00b8 00000000 		.word	.LC0
+ 134 00bc 08000000 		.word	.LC1
+ 135 00c0 0F000000 		.word	.LC2
+ 136 00c4 36000000 		.word	.LC3
+ 137 00c8 00000000 		.word	.LANCHOR5
+ 138 00cc 3B000000 		.word	.LC4
+ 140              		.section	.text.reset_init_radio,"ax",%progbits
+ 141              		.align	2
+ 142              		.syntax unified
+ 143              		.arm
+ 144              		.fpu neon
+ 146              	reset_init_radio:
+ 147              		@ args = 0, pretend = 0, frame = 0
+ 148              		@ frame_needed = 0, uses_anonymous_args = 0
+ 149 0000 70402DE9 		push	{r4, r5, r6, lr}
+ 150 0004 78009FE5 		ldr	r0, .L33
+ 151 0008 FEFFFFEB 		bl	ral_sx127x_reset
+ 152 000c 70009FE5 		ldr	r0, .L33
+ 153 0010 FEFFFFEB 		bl	ral_sx127x_init
+ 154 0014 004050E2 		subs	r4, r0, #0
+ 155 0018 0900000A 		beq	.L28
+ 156 001c 64009FE5 		ldr	r0, .L33+4
+ 157 0020 FEFFFFEB 		bl	hal_trace_print_var
+ 158 0024 60009FE5 		ldr	r0, .L33+8
+ 159 0028 FEFFFFEB 		bl	hal_trace_print_var
+ 160 002c 5C009FE5 		ldr	r0, .L33+12
+ 161              	.L32:
+ 162 0030 FEFFFFEB 		bl	hal_trace_print_var
+ 163 0034 58009FE5 		ldr	r0, .L33+16
+ 164 0038 FEFFFFEB 		bl	hal_trace_print_var
+ 165 003c 0000A0E3 		mov	r0, #0
+ 166 0040 7080BDE8 		pop	{r4, r5, r6, pc}
+ 167              	.L28:
+ 168 0044 0110A0E3 		mov	r1, #1
+ 169 0048 34009FE5 		ldr	r0, .L33
+ 170 004c FEFFFFEB 		bl	ral_sx127x_set_sleep
+ 171 0050 0050A0E1 		mov	r5, r0
+ 172 0054 0400A0E1 		mov	r0, r4
+ 173 0058 FEFFFFEB 		bl	smtc_modem_hal_set_ant_switch
+ 174 005c 000055E3 		cmp	r5, #0
+ 175 0060 0500000A 		beq	.L30
+ 176 0064 1C009FE5 		ldr	r0, .L33+4
+ 177 0068 FEFFFFEB 		bl	hal_trace_print_var
+ 178 006c 18009FE5 		ldr	r0, .L33+8
+ 179 0070 FEFFFFEB 		bl	hal_trace_print_var
+ 180 0074 1C009FE5 		ldr	r0, .L33+20
+ARM GAS  /tmp/cchB3JPN.s 			page 4
+
+
+ 181 0078 ECFFFFEA 		b	.L32
+ 182              	.L30:
+ 183 007c 0100A0E3 		mov	r0, #1
+ 184 0080 7080BDE8 		pop	{r4, r5, r6, pc}
+ 185              	.L34:
+ 186              		.align	2
+ 187              	.L33:
+ 188 0084 00000000 		.word	.LANCHOR3
+ 189 0088 00000000 		.word	.LC0
+ 190 008c 08000000 		.word	.LC1
+ 191 0090 00000000 		.word	.LC5
+ 192 0094 36000000 		.word	.LC3
+ 193 0098 1E000000 		.word	.LC6
+ 195              		.section	.text.radio_tx_irq_callback,"ax",%progbits
+ 196              		.align	2
+ 197              		.syntax unified
+ 198              		.arm
+ 199              		.fpu neon
+ 201              	radio_tx_irq_callback:
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204 0000 10402DE9 		push	{r4, lr}
+ 205 0004 FEFFFFEB 		bl	smtc_modem_hal_get_time_in_ms
+ 206 0008 FE1F01E3 		movw	r1, #8190
+ 207 000c 40309FE5 		ldr	r3, .L38
+ 208 0010 0120A0E3 		mov	r2, #1
+ 209 0014 000083E5 		str	r0, [r3]
+ 210 0018 38309FE5 		ldr	r3, .L38+4
+ 211 001c 38009FE5 		ldr	r0, .L38+8
+ 212 0020 0020C3E5 		strb	r2, [r3]
+ 213 0024 FEFFFFEB 		bl	ral_sx127x_clear_irq_status
+ 214 0028 000050E3 		cmp	r0, #0
+ 215 002c 1080BD08 		popeq	{r4, pc}
+ 216 0030 28009FE5 		ldr	r0, .L38+12
+ 217 0034 FEFFFFEB 		bl	hal_trace_print_var
+ 218 0038 24009FE5 		ldr	r0, .L38+16
+ 219 003c FEFFFFEB 		bl	hal_trace_print_var
+ 220 0040 20009FE5 		ldr	r0, .L38+20
+ 221 0044 FEFFFFEB 		bl	hal_trace_print_var
+ 222 0048 1C009FE5 		ldr	r0, .L38+24
+ 223 004c 1040BDE8 		pop	{r4, lr}
+ 224 0050 FEFFFFEA 		b	hal_trace_print_var
+ 225              	.L39:
+ 226              		.align	2
+ 227              	.L38:
+ 228 0054 00000000 		.word	.LANCHOR0
+ 229 0058 00000000 		.word	.LANCHOR4
+ 230 005c 00000000 		.word	.LANCHOR3
+ 231 0060 00000000 		.word	.LC0
+ 232 0064 08000000 		.word	.LC1
+ 233 0068 3B000000 		.word	.LC4
+ 234 006c 36000000 		.word	.LC3
+ 236              		.section	.text.radio_irq_callback_get_time_in_s,"ax",%progbits
+ 237              		.align	2
+ 238              		.syntax unified
+ 239              		.arm
+ 240              		.fpu neon
+ARM GAS  /tmp/cchB3JPN.s 			page 5
+
+
+ 242              	radio_irq_callback_get_time_in_s:
+ 243              		@ args = 0, pretend = 0, frame = 8
+ 244              		@ frame_needed = 0, uses_anonymous_args = 0
+ 245 0000 07402DE9 		push	{r0, r1, r2, lr}
+ 246 0004 0030A0E3 		mov	r3, #0
+ 247 0008 B630CDE1 		strh	r3, [sp, #6]	@ movhi
+ 248 000c FEFFFFEB 		bl	smtc_modem_hal_get_time_in_s
+ 249 0010 94309FE5 		ldr	r3, .L54
+ 250 0014 06108DE2 		add	r1, sp, #6
+ 251 0018 0120A0E3 		mov	r2, #1
+ 252 001c 000083E5 		str	r0, [r3]
+ 253 0020 88309FE5 		ldr	r3, .L54+4
+ 254 0024 88009FE5 		ldr	r0, .L54+8
+ 255 0028 0020C3E5 		strb	r2, [r3]
+ 256 002c FEFFFFEB 		bl	ral_sx127x_get_irq_status
+ 257 0030 000050E3 		cmp	r0, #0
+ 258 0034 0700000A 		beq	.L41
+ 259 0038 78009FE5 		ldr	r0, .L54+12
+ 260 003c FEFFFFEB 		bl	hal_trace_print_var
+ 261 0040 74009FE5 		ldr	r0, .L54+16
+ 262 0044 FEFFFFEB 		bl	hal_trace_print_var
+ 263 0048 70009FE5 		ldr	r0, .L54+20
+ 264 004c FEFFFFEB 		bl	hal_trace_print_var
+ 265 0050 6C009FE5 		ldr	r0, .L54+24
+ 266 0054 FEFFFFEB 		bl	hal_trace_print_var
+ 267              	.L41:
+ 268 0058 B630DDE1 		ldrh	r3, [sp, #6]
+ 269 005c FE1F01E3 		movw	r1, #8190
+ 270 0060 4C009FE5 		ldr	r0, .L54+8
+ 271 0064 080013E3 		tst	r3, #8
+ 272 0068 58309F15 		ldrne	r3, .L54+28
+ 273 006c 0120A013 		movne	r2, #1
+ 274 0070 0020C315 		strbne	r2, [r3]
+ 275 0074 FEFFFFEB 		bl	ral_sx127x_clear_irq_status
+ 276 0078 000050E3 		cmp	r0, #0
+ 277 007c 0700000A 		beq	.L43
+ 278 0080 30009FE5 		ldr	r0, .L54+12
+ 279 0084 FEFFFFEB 		bl	hal_trace_print_var
+ 280 0088 2C009FE5 		ldr	r0, .L54+16
+ 281 008c FEFFFFEB 		bl	hal_trace_print_var
+ 282 0090 34009FE5 		ldr	r0, .L54+32
+ 283 0094 FEFFFFEB 		bl	hal_trace_print_var
+ 284 0098 24009FE5 		ldr	r0, .L54+24
+ 285 009c FEFFFFEB 		bl	hal_trace_print_var
+ 286              	.L43:
+ 287 00a0 FEFFFFEB 		bl	smtc_modem_hal_stop_radio_tcxo
+ 288 00a4 0CD08DE2 		add	sp, sp, #12
+ 289              		@ sp needed
+ 290 00a8 04F09DE4 		ldr	pc, [sp], #4
+ 291              	.L55:
+ 292              		.align	2
+ 293              	.L54:
+ 294 00ac 00000000 		.word	.LANCHOR6
+ 295 00b0 00000000 		.word	.LANCHOR4
+ 296 00b4 00000000 		.word	.LANCHOR3
+ 297 00b8 00000000 		.word	.LC0
+ 298 00bc 08000000 		.word	.LC1
+ARM GAS  /tmp/cchB3JPN.s 			page 6
+
+
+ 299 00c0 00000000 		.word	.LC7
+ 300 00c4 36000000 		.word	.LC3
+ 301 00c8 00000000 		.word	.LANCHOR5
+ 302 00cc 3B000000 		.word	.LC4
+ 304              		.section	.text.main_porting_tests,"ax",%progbits
+ 305              		.align	2
+ 306              		.global	main_porting_tests
+ 307              		.syntax unified
+ 308              		.arm
+ 309              		.fpu neon
+ 311              	main_porting_tests:
+ 312              		@ args = 0, pretend = 0, frame = 0
+ 313              		@ frame_needed = 0, uses_anonymous_args = 0
+ 314 0000 70402DE9 		push	{r4, r5, r6, lr}
+ 315 0004 FEFFFFEB 		bl	hal_mcu_disable_irq
+ 316 0008 54409FE5 		ldr	r4, .L58
+ 317 000c FEFFFFEB 		bl	hal_mcu_init
+ 318 0010 50509FE5 		ldr	r5, .L58+4
+ 319 0014 FEFFFFEB 		bl	hal_mcu_enable_irq
+ 320 0018 4C209FE5 		ldr	r2, .L58+8
+ 321 001c 0410A0E1 		mov	r1, r4
+ 322 0020 0500A0E1 		mov	r0, r5
+ 323 0024 FEFFFFEB 		bl	hal_trace_print_var
+ 324 0028 0410A0E1 		mov	r1, r4
+ 325 002c 3C209FE5 		ldr	r2, .L58+12
+ 326 0030 0500A0E1 		mov	r0, r5
+ 327 0034 FEFFFFEB 		bl	hal_trace_print_var
+ 328 0038 34009FE5 		ldr	r0, .L58+16
+ 329 003c FEFFFFEB 		bl	ral_sx127x_reset
+ 330 0040 30009FE5 		ldr	r0, .L58+20
+ 331 0044 FEFFFFEB 		bl	hal_trace_print_var
+ 332 0048 2C009FE5 		ldr	r0, .L58+24
+ 333 004c FEFFFFEB 		bl	hal_trace_print_var
+ 334 0050 28009FE5 		ldr	r0, .L58+28
+ 335 0054 FEFFFFEB 		bl	hal_trace_print_var
+ 336 0058 0400A0E1 		mov	r0, r4
+ 337 005c 7040BDE8 		pop	{r4, r5, r6, lr}
+ 338 0060 FEFFFFEA 		b	hal_trace_print_var
+ 339              	.L59:
+ 340              		.align	2
+ 341              	.L58:
+ 342 0064 36000000 		.word	.LC3
+ 343 0068 27000000 		.word	.LC9
+ 344 006c 00000000 		.word	.LC8
+ 345 0070 2C000000 		.word	.LC10
+ 346 0074 00000000 		.word	.LANCHOR3
+ 347 0078 00000000 		.word	.LC0
+ 348 007c 08000000 		.word	.LC1
+ 349 0080 6A000000 		.word	.LC11
+ 351              		.global	modem_radio
+ 352              		.section	.bss.irq_rx_timeout_raised,"aw",%nobits
+ 353              		.set	.LANCHOR5,. + 0
+ 356              	irq_rx_timeout_raised:
+ 357 0000 00       		.space	1
+ 358              		.section	.bss.irq_time_ms,"aw",%nobits
+ 359              		.align	2
+ 360              		.set	.LANCHOR0,. + 0
+ARM GAS  /tmp/cchB3JPN.s 			page 7
+
+
+ 363              	irq_time_ms:
+ 364 0000 00000000 		.space	4
+ 365              		.section	.bss.irq_time_s,"aw",%nobits
+ 366              		.align	2
+ 367              		.set	.LANCHOR6,. + 0
+ 370              	irq_time_s:
+ 371 0000 00000000 		.space	4
+ 372              		.section	.bss.radio_irq_raised,"aw",%nobits
+ 373              		.set	.LANCHOR4,. + 0
+ 376              	radio_irq_raised:
+ 377 0000 00       		.space	1
+ 378              		.section	.bss.sx127x,"aw",%nobits
+ 379              		.align	2
+ 380              		.set	.LANCHOR3,. + 0
+ 383              	sx127x:
+ 384 0000 00000000 		.space	412
+ 384      00000000 
+ 384      00000000 
+ 384      00000000 
+ 384      00000000 
+ 385              		.section	.bss.timer_irq_raised,"aw",%nobits
+ 386              		.set	.LANCHOR1,. + 0
+ 389              	timer_irq_raised:
+ 390 0000 00       		.space	1
+ 391              		.section	.rodata.main_porting_tests.str1.1,"aMS",%progbits,1
+ 392              	.LC8:
+ 393 0000 0A0A0A50 		.ascii	"\012\012\012PORTING_TEST example is starting \012\012"
+ 393      4F525449 
+ 393      4E475F54 
+ 393      45535420 
+ 393      6578616D 
+ 394 0026 00       		.ascii	"\000"
+ 395              	.LC9:
+ 396 0027 25732573 		.ascii	"%s%s\000"
+ 396      00
+ 397              	.LC10:
+ 398 002c 2D2D2D2D 		.ascii	"----------------------------------------\012 portin"
+ 398      2D2D2D2D 
+ 398      2D2D2D2D 
+ 398      2D2D2D2D 
+ 398      2D2D2D2D 
+ 399 005c 675F7465 		.ascii	"g_test_spi : \000"
+ 399      73745F73 
+ 399      7069203A 
+ 399      2000
+ 400              	.LC11:
+ 401 006a 20526164 		.ascii	" Radio is not supported \012\000"
+ 401      696F2069 
+ 401      73206E6F 
+ 401      74207375 
+ 401      70706F72 
+ 402              		.section	.rodata.modem_radio,"a"
+ 403              		.align	2
+ 404              		.set	.LANCHOR2,. + 0
+ 407              	modem_radio:
+ 408 0000 00000000 		.word	sx127x
+ 409 0004 00000000 		.word	ral_sx127x_handles_part
+ARM GAS  /tmp/cchB3JPN.s 			page 8
+
+
+ 410 0008 00000000 		.word	ral_sx127x_reset
+ 411 000c 00000000 		.word	ral_sx127x_init
+ 412 0010 00000000 		.word	ral_sx127x_wakeup
+ 413 0014 00000000 		.word	ral_sx127x_set_sleep
+ 414 0018 00000000 		.word	ral_sx127x_set_standby
+ 415 001c 00000000 		.word	ral_sx127x_set_fs
+ 416 0020 00000000 		.word	ral_sx127x_set_tx
+ 417 0024 00000000 		.word	ral_sx127x_set_rx
+ 418 0028 00000000 		.word	ral_sx127x_cfg_rx_boosted
+ 419 002c 00000000 		.word	ral_sx127x_set_rx_tx_fallback_mode
+ 420 0030 00000000 		.word	ral_sx127x_stop_timer_on_preamble
+ 421 0034 00000000 		.word	ral_sx127x_set_rx_duty_cycle
+ 422 0038 00000000 		.word	ral_sx127x_set_lora_cad
+ 423 003c 00000000 		.word	ral_sx127x_set_tx_cw
+ 424 0040 00000000 		.word	ral_sx127x_set_tx_infinite_preamble
+ 425 0044 00000000 		.word	ral_sx127x_cal_img
+ 426 0048 00000000 		.word	ral_sx127x_set_tx_cfg
+ 427 004c 00000000 		.word	ral_sx127x_set_pkt_payload
+ 428 0050 00000000 		.word	ral_sx127x_get_pkt_payload
+ 429 0054 00000000 		.word	ral_sx127x_get_irq_status
+ 430 0058 00000000 		.word	ral_sx127x_clear_irq_status
+ 431 005c 00000000 		.word	ral_sx127x_get_and_clear_irq_status
+ 432 0060 00000000 		.word	ral_sx127x_set_dio_irq_params
+ 433 0064 00000000 		.word	ral_sx127x_set_rf_freq
+ 434 0068 00000000 		.word	ral_sx127x_set_pkt_type
+ 435 006c 00000000 		.word	ral_sx127x_get_pkt_type
+ 436 0070 00000000 		.word	ral_sx127x_set_gfsk_mod_params
+ 437 0074 00000000 		.word	ral_sx127x_set_gfsk_pkt_params
+ 438 0078 00000000 		.word	ral_sx127x_set_lora_mod_params
+ 439 007c 00000000 		.word	ral_sx127x_set_lora_pkt_params
+ 440 0080 00000000 		.word	ral_sx127x_set_lora_cad_params
+ 441 0084 00000000 		.word	ral_sx127x_set_lora_symb_nb_timeout
+ 442 0088 00000000 		.word	ral_sx127x_set_flrc_mod_params
+ 443 008c 00000000 		.word	ral_sx127x_set_flrc_pkt_params
+ 444 0090 00000000 		.word	ral_sx127x_get_gfsk_rx_pkt_status
+ 445 0094 00000000 		.word	ral_sx127x_get_lora_rx_pkt_status
+ 446 0098 00000000 		.word	ral_sx127x_get_flrc_rx_pkt_status
+ 447 009c 00000000 		.word	ral_sx127x_get_rssi_inst
+ 448 00a0 00000000 		.word	ral_sx127x_get_lora_time_on_air_in_ms
+ 449 00a4 00000000 		.word	ral_sx127x_get_gfsk_time_on_air_in_ms
+ 450 00a8 00000000 		.word	ral_sx127x_get_flrc_time_on_air_in_ms
+ 451 00ac 00000000 		.word	ral_sx127x_set_gfsk_sync_word
+ 452 00b0 00000000 		.word	ral_sx127x_set_lora_sync_word
+ 453 00b4 00000000 		.word	ral_sx127x_set_flrc_sync_word
+ 454 00b8 00000000 		.word	ral_sx127x_set_gfsk_crc_params
+ 455 00bc 00000000 		.word	ral_sx127x_set_flrc_crc_params
+ 456 00c0 00000000 		.word	ral_sx127x_set_gfsk_whitening_seed
+ 457 00c4 00000000 		.word	ral_sx127x_lr_fhss_init
+ 458 00c8 00000000 		.word	ral_sx127x_lr_fhss_build_frame
+ 459 00cc 00000000 		.word	ral_sx127x_lr_fhss_handle_hop
+ 460 00d0 00000000 		.word	ral_sx127x_lr_fhss_handle_tx_done
+ 461 00d4 00000000 		.word	ral_sx127x_lr_fhss_get_time_on_air_in_ms
+ 462 00d8 00000000 		.word	ral_sx127x_lr_fhss_get_hop_sequence_count
+ 463 00dc 00000000 		.word	ral_sx127x_lr_fhss_get_bit_delay_in_us
+ 464 00e0 00000000 		.word	ral_sx127x_get_lora_rx_pkt_cr_crc
+ 465 00e4 00000000 		.word	ral_sx127x_get_tx_consumption_in_ua
+ 466 00e8 00000000 		.word	ral_sx127x_get_gfsk_rx_consumption_in_ua
+ARM GAS  /tmp/cchB3JPN.s 			page 9
+
+
+ 467 00ec 00000000 		.word	ral_sx127x_get_lora_rx_consumption_in_ua
+ 468 00f0 00000000 		.word	ral_sx127x_get_random_numbers
+ 469 00f4 00000000 		.word	ral_sx127x_handle_rx_done
+ 470 00f8 00000000 		.word	ral_sx127x_handle_tx_done
+ 471 00fc 00000000 		.word	ral_sx127x_get_lora_cad_det_peak
+ 472 0100 00000000 		.word	ralf_sx127x_setup_gfsk
+ 473 0104 00000000 		.word	ralf_sx127x_setup_lora
+ 474 0108 00000000 		.word	ralf_sx127x_setup_flrc
+ 475 010c 00000000 		.word	ralf_sx127x_setup_lora_cad
+ 476              		.section	.rodata.radio_irq_callback_get_time_in_s.str1.1,"aMS",%progbits,1
+ 477              	.LC7:
+ 478 0000 2072616C 		.ascii	" ral_get_irq_status() function failed \012\000"
+ 478      5F676574 
+ 478      5F697271 
+ 478      5F737461 
+ 478      74757328 
+ 479              		.section	.rodata.radio_rx_irq_callback.str1.1,"aMS",%progbits,1
+ 480              	.LC0:
+ 481 0000 1B5B303B 		.ascii	"\033[0;31m\000"
+ 481      33316D00 
+ 482              	.LC1:
+ 483 0008 0A204E4F 		.ascii	"\012 NOK:\000"
+ 483      4B3A00
+ 484              	.LC2:
+ 485 000f 72616C5F 		.ascii	"ral_get_irq_status() function failed \012\000"
+ 485      6765745F 
+ 485      6972715F 
+ 485      73746174 
+ 485      75732829 
+ 486              	.LC3:
+ 487 0036 1B5B306D 		.ascii	"\033[0m\000"
+ 487      00
+ 488              	.LC4:
+ 489 003b 2072616C 		.ascii	" ral_clear_irq_status() function failed \012\000"
+ 489      5F636C65 
+ 489      61725F69 
+ 489      72715F73 
+ 489      74617475 
+ 490              		.section	.rodata.reset_init_radio.str1.1,"aMS",%progbits,1
+ 491              	.LC5:
+ 492 0000 2072616C 		.ascii	" ral_init() function failed \012\000"
+ 492      5F696E69 
+ 492      74282920 
+ 492      66756E63 
+ 492      74696F6E 
+ 493              	.LC6:
+ 494 001e 2072616C 		.ascii	" ral_set_sleep() function failed \012\000"
+ 494      5F736574 
+ 494      5F736C65 
+ 494      65702829 
+ 494      2066756E 
+ 495              		.ident	"GCC: (crosstool-NG 1.24.0) 8.3.0"
+ 496              		.section	.note.GNU-stack,"",%progbits
+ARM GAS  /tmp/cchB3JPN.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main_porting_tests.c
+     /tmp/cchB3JPN.s:13     .text.timer_irq_callback:0000000000000000 $a
+     /tmp/cchB3JPN.s:19     .text.timer_irq_callback:0000000000000000 timer_irq_callback
+     /tmp/cchB3JPN.s:33     .text.timer_irq_callback:0000000000000020 $d
+     /tmp/cchB3JPN.s:37     .text.ralf_setup_lora.constprop.2:0000000000000000 $a
+     /tmp/cchB3JPN.s:42     .text.ralf_setup_lora.constprop.2:0000000000000000 ralf_setup_lora.constprop.2
+     /tmp/cchB3JPN.s:52     .text.ralf_setup_lora.constprop.2:000000000000000c $d
+     /tmp/cchB3JPN.s:55     .text.ral_set_dio_irq_params.constprop.3:0000000000000000 $a
+     /tmp/cchB3JPN.s:60     .text.ral_set_dio_irq_params.constprop.3:0000000000000000 ral_set_dio_irq_params.constprop.3
+     /tmp/cchB3JPN.s:70     .text.ral_set_dio_irq_params.constprop.3:000000000000000c $d
+     /tmp/cchB3JPN.s:73     .text.radio_rx_irq_callback:0000000000000000 $a
+     /tmp/cchB3JPN.s:78     .text.radio_rx_irq_callback:0000000000000000 radio_rx_irq_callback
+     /tmp/cchB3JPN.s:130    .text.radio_rx_irq_callback:00000000000000ac $d
+     /tmp/cchB3JPN.s:141    .text.reset_init_radio:0000000000000000 $a
+     /tmp/cchB3JPN.s:146    .text.reset_init_radio:0000000000000000 reset_init_radio
+     /tmp/cchB3JPN.s:188    .text.reset_init_radio:0000000000000084 $d
+     /tmp/cchB3JPN.s:196    .text.radio_tx_irq_callback:0000000000000000 $a
+     /tmp/cchB3JPN.s:201    .text.radio_tx_irq_callback:0000000000000000 radio_tx_irq_callback
+     /tmp/cchB3JPN.s:228    .text.radio_tx_irq_callback:0000000000000054 $d
+     /tmp/cchB3JPN.s:237    .text.radio_irq_callback_get_time_in_s:0000000000000000 $a
+     /tmp/cchB3JPN.s:242    .text.radio_irq_callback_get_time_in_s:0000000000000000 radio_irq_callback_get_time_in_s
+     /tmp/cchB3JPN.s:294    .text.radio_irq_callback_get_time_in_s:00000000000000ac $d
+     /tmp/cchB3JPN.s:305    .text.main_porting_tests:0000000000000000 $a
+     /tmp/cchB3JPN.s:311    .text.main_porting_tests:0000000000000000 main_porting_tests
+     /tmp/cchB3JPN.s:342    .text.main_porting_tests:0000000000000064 $d
+     /tmp/cchB3JPN.s:407    .rodata.modem_radio:0000000000000000 modem_radio
+     /tmp/cchB3JPN.s:356    .bss.irq_rx_timeout_raised:0000000000000000 irq_rx_timeout_raised
+     /tmp/cchB3JPN.s:357    .bss.irq_rx_timeout_raised:0000000000000000 $d
+     /tmp/cchB3JPN.s:359    .bss.irq_time_ms:0000000000000000 $d
+     /tmp/cchB3JPN.s:363    .bss.irq_time_ms:0000000000000000 irq_time_ms
+     /tmp/cchB3JPN.s:366    .bss.irq_time_s:0000000000000000 $d
+     /tmp/cchB3JPN.s:370    .bss.irq_time_s:0000000000000000 irq_time_s
+     /tmp/cchB3JPN.s:376    .bss.radio_irq_raised:0000000000000000 radio_irq_raised
+     /tmp/cchB3JPN.s:377    .bss.radio_irq_raised:0000000000000000 $d
+     /tmp/cchB3JPN.s:379    .bss.sx127x:0000000000000000 $d
+     /tmp/cchB3JPN.s:383    .bss.sx127x:0000000000000000 sx127x
+     /tmp/cchB3JPN.s:389    .bss.timer_irq_raised:0000000000000000 timer_irq_raised
+     /tmp/cchB3JPN.s:390    .bss.timer_irq_raised:0000000000000000 $d
+     /tmp/cchB3JPN.s:403    .rodata.modem_radio:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+smtc_modem_hal_get_time_in_ms
+ralf_sx127x_setup_lora
+ral_sx127x_set_dio_irq_params
+ral_sx127x_get_irq_status
+hal_trace_print_var
+ral_sx127x_clear_irq_status
+smtc_modem_hal_stop_radio_tcxo
+ral_sx127x_reset
+ral_sx127x_init
+ral_sx127x_set_sleep
+smtc_modem_hal_set_ant_switch
+smtc_modem_hal_get_time_in_s
+hal_mcu_disable_irq
+hal_mcu_init
+hal_mcu_enable_irq
+ARM GAS  /tmp/cchB3JPN.s 			page 11
+
+
+ral_sx127x_handles_part
+ral_sx127x_wakeup
+ral_sx127x_set_standby
+ral_sx127x_set_fs
+ral_sx127x_set_tx
+ral_sx127x_set_rx
+ral_sx127x_cfg_rx_boosted
+ral_sx127x_set_rx_tx_fallback_mode
+ral_sx127x_stop_timer_on_preamble
+ral_sx127x_set_rx_duty_cycle
+ral_sx127x_set_lora_cad
+ral_sx127x_set_tx_cw
+ral_sx127x_set_tx_infinite_preamble
+ral_sx127x_cal_img
+ral_sx127x_set_tx_cfg
+ral_sx127x_set_pkt_payload
+ral_sx127x_get_pkt_payload
+ral_sx127x_get_and_clear_irq_status
+ral_sx127x_set_rf_freq
+ral_sx127x_set_pkt_type
+ral_sx127x_get_pkt_type
+ral_sx127x_set_gfsk_mod_params
+ral_sx127x_set_gfsk_pkt_params
+ral_sx127x_set_lora_mod_params
+ral_sx127x_set_lora_pkt_params
+ral_sx127x_set_lora_cad_params
+ral_sx127x_set_lora_symb_nb_timeout
+ral_sx127x_set_flrc_mod_params
+ral_sx127x_set_flrc_pkt_params
+ral_sx127x_get_gfsk_rx_pkt_status
+ral_sx127x_get_lora_rx_pkt_status
+ral_sx127x_get_flrc_rx_pkt_status
+ral_sx127x_get_rssi_inst
+ral_sx127x_get_lora_time_on_air_in_ms
+ral_sx127x_get_gfsk_time_on_air_in_ms
+ral_sx127x_get_flrc_time_on_air_in_ms
+ral_sx127x_set_gfsk_sync_word
+ral_sx127x_set_lora_sync_word
+ral_sx127x_set_flrc_sync_word
+ral_sx127x_set_gfsk_crc_params
+ral_sx127x_set_flrc_crc_params
+ral_sx127x_set_gfsk_whitening_seed
+ral_sx127x_lr_fhss_init
+ral_sx127x_lr_fhss_build_frame
+ral_sx127x_lr_fhss_handle_hop
+ral_sx127x_lr_fhss_handle_tx_done
+ral_sx127x_lr_fhss_get_time_on_air_in_ms
+ral_sx127x_lr_fhss_get_hop_sequence_count
+ral_sx127x_lr_fhss_get_bit_delay_in_us
+ral_sx127x_get_lora_rx_pkt_cr_crc
+ral_sx127x_get_tx_consumption_in_ua
+ral_sx127x_get_gfsk_rx_consumption_in_ua
+ral_sx127x_get_lora_rx_consumption_in_ua
+ral_sx127x_get_random_numbers
+ral_sx127x_handle_rx_done
+ral_sx127x_handle_tx_done
+ral_sx127x_get_lora_cad_det_peak
+ARM GAS  /tmp/cchB3JPN.s 			page 12
+
+
+ralf_sx127x_setup_gfsk
+ralf_sx127x_setup_flrc
+ralf_sx127x_setup_lora_cad

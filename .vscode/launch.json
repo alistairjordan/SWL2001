@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "gdb",
+            "name": "Attach to luckfox",
+            "request": "attach",
+            "remote": true,
+            "target": "172.32.0.93:1209",
+            "gdbpath": "/usr/bin/gdb-multiarch",
+            "executable": "/home/aj/lorawan-balloon/sysdrv/tools/board/SWL2001/lbm_examples/build_sx1276_linux/app_sx1276.elf",
+            "cwd": "${workspaceRoot}",
+            "valuesFormatting": "parseText",
+            // "autorun": [
+            //    "adb shell gdbserver 172.32.0.93:1209 app_sx1276.elf",
+            // ]
+        }
+    ]
+}

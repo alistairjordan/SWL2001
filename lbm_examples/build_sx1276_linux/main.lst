@@ -1,0 +1,40 @@
+ARM GAS  /tmp/ccskDduY.s 			page 1
+
+
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 23, 1
+   4              		.eabi_attribute 24, 1
+   5              		.eabi_attribute 25, 1
+   6              		.eabi_attribute 26, 2
+   7              		.eabi_attribute 30, 4
+   8              		.eabi_attribute 34, 1
+   9              		.eabi_attribute 18, 4
+  10              		.file	"main.c"
+  11              		.text
+  12              		.section	.text.startup.main,"ax",%progbits
+  13              		.align	2
+  14              		.global	main
+  15              		.arch armv7-a
+  16              		.syntax unified
+  17              		.arm
+  18              		.fpu neon
+  20              	main:
+  21              		@ args = 0, pretend = 0, frame = 0
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23 0000 10402DE9 		push	{r4, lr}
+  24 0004 FEFFFFEB 		bl	main_porting_tests
+  25 0008 0000A0E3 		mov	r0, #0
+  26 000c 1080BDE8 		pop	{r4, pc}
+  28              		.ident	"GCC: (crosstool-NG 1.24.0) 8.3.0"
+  29              		.section	.note.GNU-stack,"",%progbits
+ARM GAS  /tmp/ccskDduY.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccskDduY.s:13     .text.startup.main:0000000000000000 $a
+     /tmp/ccskDduY.s:20     .text.startup.main:0000000000000000 main
+
+UNDEFINED SYMBOLS
+main_porting_tests

@@ -1,0 +1,232 @@
+ARM GAS  /tmp/ccZDwbQu.s 			page 1
+
+
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 23, 1
+   4              		.eabi_attribute 24, 1
+   5              		.eabi_attribute 25, 1
+   6              		.eabi_attribute 26, 2
+   7              		.eabi_attribute 30, 4
+   8              		.eabi_attribute 34, 1
+   9              		.eabi_attribute 18, 4
+  10              		.file	"spidev_lib.c"
+  11              		.text
+  12              		.section	.text.spi_open,"ax",%progbits
+  13              		.align	2
+  14              		.global	spi_open
+  15              		.arch armv7-a
+  16              		.syntax unified
+  17              		.arm
+  18              		.fpu neon
+  20              	spi_open:
+  21              		@ args = 0, pretend = 0, frame = 16
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23 0000 30402DE9 		push	{r4, r5, lr}
+  24 0004 14D04DE2 		sub	sp, sp, #20
+  25 0008 04508DE2 		add	r5, sp, #4
+  26 000c 0E0085E8 		stm	r5, {r1, r2, r3}
+  27 0010 0210A0E3 		mov	r1, #2
+  28 0014 FEFFFFEB 		bl	open
+  29 0018 004050E2 		subs	r4, r0, #0
+  30 001c 230000BA 		blt	.L1
+  31 0020 0520A0E1 		mov	r2, r5
+  32 0024 90109FE5 		ldr	r1, .L5
+  33 0028 FEFFFFEB 		bl	ioctl
+  34 002c 000050E3 		cmp	r0, #0
+  35 0030 1D0000BA 		blt	.L3
+  36 0034 0520A0E1 		mov	r2, r5
+  37 0038 80109FE5 		ldr	r1, .L5+4
+  38 003c 0400A0E1 		mov	r0, r4
+  39 0040 FEFFFFEB 		bl	ioctl
+  40 0044 000050E3 		cmp	r0, #0
+  41 0048 170000BA 		blt	.L3
+  42 004c 05208DE2 		add	r2, sp, #5
+  43 0050 6C109FE5 		ldr	r1, .L5+8
+  44 0054 0400A0E1 		mov	r0, r4
+  45 0058 FEFFFFEB 		bl	ioctl
+  46 005c 000050E3 		cmp	r0, #0
+  47 0060 110000BA 		blt	.L3
+  48 0064 05208DE2 		add	r2, sp, #5
+  49 0068 58109FE5 		ldr	r1, .L5+12
+  50 006c 0400A0E1 		mov	r0, r4
+  51 0070 FEFFFFEB 		bl	ioctl
+  52 0074 000050E3 		cmp	r0, #0
+  53 0078 0B0000BA 		blt	.L3
+  54 007c 08208DE2 		add	r2, sp, #8
+  55 0080 44109FE5 		ldr	r1, .L5+16
+  56 0084 0400A0E1 		mov	r0, r4
+  57 0088 FEFFFFEB 		bl	ioctl
+  58 008c 000050E3 		cmp	r0, #0
+ARM GAS  /tmp/ccZDwbQu.s 			page 2
+
+
+  59 0090 050000BA 		blt	.L3
+  60 0094 08208DE2 		add	r2, sp, #8
+  61 0098 30109FE5 		ldr	r1, .L5+20
+  62 009c 0400A0E1 		mov	r0, r4
+  63 00a0 FEFFFFEB 		bl	ioctl
+  64 00a4 000050E3 		cmp	r0, #0
+  65 00a8 000000AA 		bge	.L1
+  66              	.L3:
+  67 00ac 0040E0E3 		mvn	r4, #0
+  68              	.L1:
+  69 00b0 0400A0E1 		mov	r0, r4
+  70 00b4 14D08DE2 		add	sp, sp, #20
+  71              		@ sp needed
+  72 00b8 3080BDE8 		pop	{r4, r5, pc}
+  73              	.L6:
+  74              		.align	2
+  75              	.L5:
+  76 00bc 016B0140 		.word	1073834753
+  77 00c0 016B0180 		.word	-2147390719
+  78 00c4 036B0140 		.word	1073834755
+  79 00c8 036B0180 		.word	-2147390717
+  80 00cc 046B0440 		.word	1074031364
+  81 00d0 046B0480 		.word	-2147194108
+  83              		.section	.text.spi_close,"ax",%progbits
+  84              		.align	2
+  85              		.global	spi_close
+  86              		.syntax unified
+  87              		.arm
+  88              		.fpu neon
+  90              	spi_close:
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93              		@ link register save eliminated.
+  94 0000 FEFFFFEA 		b	close
+  96              		.section	.text.spi_xfer,"ax",%progbits
+  97              		.align	2
+  98              		.global	spi_xfer
+  99              		.syntax unified
+ 100              		.arm
+ 101              		.fpu neon
+ 103              	spi_xfer:
+ 104              		@ args = 4, pretend = 0, frame = 32
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106 0000 F0402DE9 		push	{r4, r5, r6, r7, lr}
+ 107 0004 24D04DE2 		sub	sp, sp, #36
+ 108 0008 0040A0E1 		mov	r4, r0
+ 109 000c 0160A0E1 		mov	r6, r1
+ 110 0010 0250A0E1 		mov	r5, r2
+ 111 0014 0010A0E3 		mov	r1, #0
+ 112 0018 2020A0E3 		mov	r2, #32
+ 113 001c 0D00A0E1 		mov	r0, sp
+ 114 0020 0370A0E1 		mov	r7, r3
+ 115 0024 FEFFFFEB 		bl	memset
+ 116 0028 0020A0E3 		mov	r2, #0
+ 117 002c 24109FE5 		ldr	r1, .L10
+ 118 0030 0C208DE5 		str	r2, [sp, #12]
+ 119 0034 0400A0E1 		mov	r0, r4
+ARM GAS  /tmp/ccZDwbQu.s 			page 3
+
+
+ 120 0038 04208DE5 		str	r2, [sp, #4]
+ 121 003c 0D20A0E1 		mov	r2, sp
+ 122 0040 08708DE5 		str	r7, [sp, #8]
+ 123 0044 00608DE5 		str	r6, [sp]
+ 124 0048 10508DE5 		str	r5, [sp, #16]
+ 125 004c FEFFFFEB 		bl	ioctl
+ 126 0050 24D08DE2 		add	sp, sp, #36
+ 127              		@ sp needed
+ 128 0054 F080BDE8 		pop	{r4, r5, r6, r7, pc}
+ 129              	.L11:
+ 130              		.align	2
+ 131              	.L10:
+ 132 0058 006B2040 		.word	1075866368
+ 134              		.section	.text.spi_read,"ax",%progbits
+ 135              		.align	2
+ 136              		.global	spi_read
+ 137              		.syntax unified
+ 138              		.arm
+ 139              		.fpu neon
+ 141              	spi_read:
+ 142              		@ args = 0, pretend = 0, frame = 32
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144 0000 70402DE9 		push	{r4, r5, r6, lr}
+ 145 0004 20D04DE2 		sub	sp, sp, #32
+ 146 0008 0040A0E1 		mov	r4, r0
+ 147 000c 0160A0E1 		mov	r6, r1
+ 148 0010 0250A0E1 		mov	r5, r2
+ 149 0014 0010A0E3 		mov	r1, #0
+ 150 0018 2020A0E3 		mov	r2, #32
+ 151 001c 0D00A0E1 		mov	r0, sp
+ 152 0020 FEFFFFEB 		bl	memset
+ 153 0024 0D20A0E1 		mov	r2, sp
+ 154 0028 1C109FE5 		ldr	r1, .L14
+ 155 002c 0400A0E1 		mov	r0, r4
+ 156 0030 0030A0E3 		mov	r3, #0
+ 157 0034 08608DE5 		str	r6, [sp, #8]
+ 158 0038 0C308DE5 		str	r3, [sp, #12]
+ 159 003c 10508DE5 		str	r5, [sp, #16]
+ 160 0040 FEFFFFEB 		bl	ioctl
+ 161 0044 20D08DE2 		add	sp, sp, #32
+ 162              		@ sp needed
+ 163 0048 7080BDE8 		pop	{r4, r5, r6, pc}
+ 164              	.L15:
+ 165              		.align	2
+ 166              	.L14:
+ 167 004c 006B2040 		.word	1075866368
+ 169              		.section	.text.spi_write,"ax",%progbits
+ 170              		.align	2
+ 171              		.global	spi_write
+ 172              		.syntax unified
+ 173              		.arm
+ 174              		.fpu neon
+ 176              	spi_write:
+ 177              		@ args = 0, pretend = 0, frame = 32
+ 178              		@ frame_needed = 0, uses_anonymous_args = 0
+ 179 0000 70402DE9 		push	{r4, r5, r6, lr}
+ 180 0004 20D04DE2 		sub	sp, sp, #32
+ARM GAS  /tmp/ccZDwbQu.s 			page 4
+
+
+ 181 0008 0040A0E1 		mov	r4, r0
+ 182 000c 0160A0E1 		mov	r6, r1
+ 183 0010 0250A0E1 		mov	r5, r2
+ 184 0014 0010A0E3 		mov	r1, #0
+ 185 0018 2020A0E3 		mov	r2, #32
+ 186 001c 0D00A0E1 		mov	r0, sp
+ 187 0020 FEFFFFEB 		bl	memset
+ 188 0024 0D20A0E1 		mov	r2, sp
+ 189 0028 1C109FE5 		ldr	r1, .L18
+ 190 002c 0400A0E1 		mov	r0, r4
+ 191 0030 0030A0E3 		mov	r3, #0
+ 192 0034 00608DE5 		str	r6, [sp]
+ 193 0038 04308DE5 		str	r3, [sp, #4]
+ 194 003c 10508DE5 		str	r5, [sp, #16]
+ 195 0040 FEFFFFEB 		bl	ioctl
+ 196 0044 20D08DE2 		add	sp, sp, #32
+ 197              		@ sp needed
+ 198 0048 7080BDE8 		pop	{r4, r5, r6, pc}
+ 199              	.L19:
+ 200              		.align	2
+ 201              	.L18:
+ 202 004c 006B2040 		.word	1075866368
+ 204              		.ident	"GCC: (crosstool-NG 1.24.0) 8.3.0"
+ 205              		.section	.note.GNU-stack,"",%progbits
+ARM GAS  /tmp/ccZDwbQu.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 spidev_lib.c
+     /tmp/ccZDwbQu.s:13     .text.spi_open:0000000000000000 $a
+     /tmp/ccZDwbQu.s:20     .text.spi_open:0000000000000000 spi_open
+     /tmp/ccZDwbQu.s:76     .text.spi_open:00000000000000bc $d
+     /tmp/ccZDwbQu.s:84     .text.spi_close:0000000000000000 $a
+     /tmp/ccZDwbQu.s:90     .text.spi_close:0000000000000000 spi_close
+     /tmp/ccZDwbQu.s:97     .text.spi_xfer:0000000000000000 $a
+     /tmp/ccZDwbQu.s:103    .text.spi_xfer:0000000000000000 spi_xfer
+     /tmp/ccZDwbQu.s:132    .text.spi_xfer:0000000000000058 $d
+     /tmp/ccZDwbQu.s:135    .text.spi_read:0000000000000000 $a
+     /tmp/ccZDwbQu.s:141    .text.spi_read:0000000000000000 spi_read
+     /tmp/ccZDwbQu.s:167    .text.spi_read:000000000000004c $d
+     /tmp/ccZDwbQu.s:170    .text.spi_write:0000000000000000 $a
+     /tmp/ccZDwbQu.s:176    .text.spi_write:0000000000000000 spi_write
+     /tmp/ccZDwbQu.s:202    .text.spi_write:000000000000004c $d
+
+UNDEFINED SYMBOLS
+open
+ioctl
+close
+memset

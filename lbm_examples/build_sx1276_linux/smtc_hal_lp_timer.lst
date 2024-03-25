@@ -1,0 +1,259 @@
+ARM GAS  /tmp/ccgeeYpS.s 			page 1
+
+
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 23, 1
+   4              		.eabi_attribute 24, 1
+   5              		.eabi_attribute 25, 1
+   6              		.eabi_attribute 26, 2
+   7              		.eabi_attribute 30, 4
+   8              		.eabi_attribute 34, 1
+   9              		.eabi_attribute 18, 4
+  10              		.file	"smtc_hal_lp_timer.c"
+  11              		.text
+  12              		.section	.text.hal_lp_timer_init,"ax",%progbits
+  13              		.align	2
+  14              		.global	hal_lp_timer_init
+  15              		.arch armv7-a
+  16              		.syntax unified
+  17              		.arm
+  18              		.fpu neon
+  20              	hal_lp_timer_init:
+  21              		@ args = 0, pretend = 0, frame = 0
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23              		@ link register save eliminated.
+  24 0000 1EFF2FE1 		bx	lr
+  26              		.section	.text.msleep,"ax",%progbits
+  27              		.align	2
+  28              		.global	msleep
+  29              		.syntax unified
+  30              		.arm
+  31              		.fpu neon
+  33              	msleep:
+  34              		@ args = 0, pretend = 0, frame = 8
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36 0000 37402DE9 		push	{r0, r1, r2, r4, r5, lr}
+  37 0004 000050E3 		cmp	r0, #0
+  38 0008 060000AA 		bge	.L3
+  39 000c FEFFFFEB 		bl	__errno_location
+  40 0010 0040E0E3 		mvn	r4, #0
+  41 0014 1630A0E3 		mov	r3, #22
+  42 0018 003080E5 		str	r3, [r0]
+  43              	.L2:
+  44 001c 0400A0E1 		mov	r0, r4
+  45 0020 0CD08DE2 		add	sp, sp, #12
+  46              		@ sp needed
+  47 0024 3080BDE8 		pop	{r4, r5, pc}
+  48              	.L3:
+  49 0028 48409FE5 		ldr	r4, .L12
+  50 002c C03FA0E1 		asr	r3, r0, #31
+  51 0030 FA2FA0E3 		mov	r2, #1000
+  52 0034 9044C5E0 		smull	r4, r5, r0, r4
+  53 0038 453363E0 		rsb	r3, r3, r5, asr #6
+  54 003c 00308DE5 		str	r3, [sp]
+  55 0040 920363E0 		mls	r3, r2, r3, r0
+  56 0044 30009FE5 		ldr	r0, .L12+4
+  57 0048 900303E0 		mul	r3, r0, r3
+  58 004c 04308DE5 		str	r3, [sp, #4]
+  59              	.L5:
+  60 0050 0D10A0E1 		mov	r1, sp
+ARM GAS  /tmp/ccgeeYpS.s 			page 2
+
+
+  61 0054 0D00A0E1 		mov	r0, sp
+  62 0058 FEFFFFEB 		bl	nanosleep
+  63 005c 004050E2 		subs	r4, r0, #0
+  64 0060 EDFFFF0A 		beq	.L2
+  65 0064 FEFFFFEB 		bl	__errno_location
+  66 0068 003090E5 		ldr	r3, [r0]
+  67 006c 040053E3 		cmp	r3, #4
+  68 0070 F6FFFF0A 		beq	.L5
+  69 0074 E8FFFFEA 		b	.L2
+  70              	.L13:
+  71              		.align	2
+  72              	.L12:
+  73 0078 D34D6210 		.word	274877907
+  74 007c 40420F00 		.word	1000000
+  76              		.section	.text.hal_lp_timer_start_thread,"ax",%progbits
+  77              		.align	2
+  78              		.global	hal_lp_timer_start_thread
+  79              		.syntax unified
+  80              		.arm
+  81              		.fpu neon
+  83              	hal_lp_timer_start_thread:
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86 0000 10402DE9 		push	{r4, lr}
+  87 0004 0040A0E1 		mov	r4, r0
+  88 0008 24009FE5 		ldr	r0, .L16
+  89 000c FEFFFFEB 		bl	printf
+  90 0010 20309FE5 		ldr	r3, .L16+4
+  91 0014 000093E5 		ldr	r0, [r3]
+  92 0018 FEFFFFEB 		bl	fflush
+  93 001c 080094E5 		ldr	r0, [r4, #8]
+  94 0020 FEFFFFEB 		bl	msleep
+  95 0024 090094E8 		ldm	r4, {r0, r3}
+  96 0028 33FF2FE1 		blx	r3
+  97 002c 0400A0E1 		mov	r0, r4
+  98 0030 1080BDE8 		pop	{r4, pc}
+  99              	.L17:
+ 100              		.align	2
+ 101              	.L16:
+ 102 0034 00000000 		.word	.LC0
+ 103 0038 00000000 		.word	stdout
+ 105              		.section	.text.hal_lp_timer_start,"ax",%progbits
+ 106              		.align	2
+ 107              		.global	hal_lp_timer_start
+ 108              		.syntax unified
+ 109              		.arm
+ 110              		.fpu neon
+ 112              	hal_lp_timer_start:
+ 113              		@ args = 0, pretend = 0, frame = 0
+ 114              		@ frame_needed = 0, uses_anonymous_args = 0
+ 115 0000 F0412DE9 		push	{r4, r5, r6, r7, r8, lr}
+ 116 0004 0040A0E1 		mov	r4, r0
+ 117 0008 50609FE5 		ldr	r6, .L20
+ 118 000c 0250A0E1 		mov	r5, r2
+ 119 0010 4C009FE5 		ldr	r0, .L20+4
+ 120 0014 0170A0E1 		mov	r7, r1
+ 121 0018 FEFFFFEB 		bl	printf
+ARM GAS  /tmp/ccgeeYpS.s 			page 3
+
+
+ 122 001c 000096E5 		ldr	r0, [r6]
+ 123 0020 FEFFFFEB 		bl	fflush
+ 124 0024 3C009FE5 		ldr	r0, .L20+8
+ 125 0028 FEFFFFEB 		bl	printf
+ 126 002c 000096E5 		ldr	r0, [r6]
+ 127 0030 FEFFFFEB 		bl	fflush
+ 128 0034 30009FE5 		ldr	r0, .L20+12
+ 129 0038 0530A0E1 		mov	r3, r5
+ 130 003c 2C209FE5 		ldr	r2, .L20+16
+ 131 0040 087085E5 		str	r7, [r5, #8]
+ 132 0044 0010A0E3 		mov	r1, #0
+ 133 0048 040180E0 		add	r0, r0, r4, lsl #2
+ 134 004c FEFFFFEB 		bl	pthread_create
+ 135 0050 1C309FE5 		ldr	r3, .L20+20
+ 136 0054 0120A0E3 		mov	r2, #1
+ 137 0058 0420C3E7 		strb	r2, [r3, r4]
+ 138 005c F081BDE8 		pop	{r4, r5, r6, r7, r8, pc}
+ 139              	.L21:
+ 140              		.align	2
+ 141              	.L20:
+ 142 0060 00000000 		.word	stdout
+ 143 0064 00000000 		.word	.LC1
+ 144 0068 0E000000 		.word	.LC2
+ 145 006c 00000000 		.word	thread_id
+ 146 0070 00000000 		.word	hal_lp_timer_start_thread
+ 147 0074 00000000 		.word	.LANCHOR0
+ 149              		.section	.text.hal_lp_timer_stop,"ax",%progbits
+ 150              		.align	2
+ 151              		.global	hal_lp_timer_stop
+ 152              		.syntax unified
+ 153              		.arm
+ 154              		.fpu neon
+ 156              	hal_lp_timer_stop:
+ 157              		@ args = 0, pretend = 0, frame = 0
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 159              		@ link register save eliminated.
+ 160 0000 080050E3 		cmp	r0, #8
+ 161 0004 1EFF2F81 		bxhi	lr
+ 162 0008 18309FE5 		ldr	r3, .L27
+ 163 000c 0030D3E7 		ldrb	r3, [r3, r0]	@ zero_extendqisi2
+ 164 0010 000053E3 		cmp	r3, #0
+ 165 0014 1EFF2F01 		bxeq	lr
+ 166 0018 0C309FE5 		ldr	r3, .L27+4
+ 167 001c 0010A0E3 		mov	r1, #0
+ 168 0020 000193E7 		ldr	r0, [r3, r0, lsl #2]
+ 169 0024 FEFFFFEA 		b	pthread_kill
+ 170              	.L28:
+ 171              		.align	2
+ 172              	.L27:
+ 173 0028 00000000 		.word	.LANCHOR0
+ 174 002c 00000000 		.word	thread_id
+ 176              		.section	.text.hal_lp_timer_irq_enable,"ax",%progbits
+ 177              		.align	2
+ 178              		.global	hal_lp_timer_irq_enable
+ 179              		.syntax unified
+ 180              		.arm
+ 181              		.fpu neon
+ARM GAS  /tmp/ccgeeYpS.s 			page 4
+
+
+ 183              	hal_lp_timer_irq_enable:
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              		@ link register save eliminated.
+ 187 0000 1EFF2FE1 		bx	lr
+ 189              		.section	.text.hal_lp_timer_irq_disable,"ax",%progbits
+ 190              		.align	2
+ 191              		.global	hal_lp_timer_irq_disable
+ 192              		.syntax unified
+ 193              		.arm
+ 194              		.fpu neon
+ 196              	hal_lp_timer_irq_disable:
+ 197              		@ args = 0, pretend = 0, frame = 0
+ 198              		@ frame_needed = 0, uses_anonymous_args = 0
+ 199              		@ link register save eliminated.
+ 200 0000 1EFF2FE1 		bx	lr
+ 202              		.global	thread_running
+ 203              		.comm	thread_id,8,4
+ 204              		.section	.bss.thread_running,"aw",%nobits
+ 205              		.set	.LANCHOR0,. + 0
+ 208              	thread_running:
+ 209 0000 0000     		.space	2
+ 210              		.section	.rodata.hal_lp_timer_start.str1.1,"aMS",%progbits,1
+ 211              	.LC1:
+ 212 0000 4920414D 		.ascii	"I AM HERE BRO\000"
+ 212      20484552 
+ 212      45204252 
+ 212      4F00
+ 213              	.LC2:
+ 214 000e 494E464F 		.ascii	"INFO:hal_lp_timer_start\012\000"
+ 214      3A68616C 
+ 214      5F6C705F 
+ 214      74696D65 
+ 214      725F7374 
+ 215              		.section	.rodata.hal_lp_timer_start_thread.str1.1,"aMS",%progbits,1
+ 216              	.LC0:
+ 217 0000 4920414D 		.ascii	"I AM HERE\000"
+ 217      20484552 
+ 217      4500
+ 218              		.ident	"GCC: (crosstool-NG 1.24.0) 8.3.0"
+ 219              		.section	.note.GNU-stack,"",%progbits
+ARM GAS  /tmp/ccgeeYpS.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 smtc_hal_lp_timer.c
+     /tmp/ccgeeYpS.s:13     .text.hal_lp_timer_init:0000000000000000 $a
+     /tmp/ccgeeYpS.s:20     .text.hal_lp_timer_init:0000000000000000 hal_lp_timer_init
+     /tmp/ccgeeYpS.s:27     .text.msleep:0000000000000000 $a
+     /tmp/ccgeeYpS.s:33     .text.msleep:0000000000000000 msleep
+     /tmp/ccgeeYpS.s:73     .text.msleep:0000000000000078 $d
+     /tmp/ccgeeYpS.s:77     .text.hal_lp_timer_start_thread:0000000000000000 $a
+     /tmp/ccgeeYpS.s:83     .text.hal_lp_timer_start_thread:0000000000000000 hal_lp_timer_start_thread
+     /tmp/ccgeeYpS.s:102    .text.hal_lp_timer_start_thread:0000000000000034 $d
+     /tmp/ccgeeYpS.s:106    .text.hal_lp_timer_start:0000000000000000 $a
+     /tmp/ccgeeYpS.s:112    .text.hal_lp_timer_start:0000000000000000 hal_lp_timer_start
+     /tmp/ccgeeYpS.s:142    .text.hal_lp_timer_start:0000000000000060 $d
+                            *COM*:0000000000000008 thread_id
+     /tmp/ccgeeYpS.s:150    .text.hal_lp_timer_stop:0000000000000000 $a
+     /tmp/ccgeeYpS.s:156    .text.hal_lp_timer_stop:0000000000000000 hal_lp_timer_stop
+     /tmp/ccgeeYpS.s:173    .text.hal_lp_timer_stop:0000000000000028 $d
+     /tmp/ccgeeYpS.s:177    .text.hal_lp_timer_irq_enable:0000000000000000 $a
+     /tmp/ccgeeYpS.s:183    .text.hal_lp_timer_irq_enable:0000000000000000 hal_lp_timer_irq_enable
+     /tmp/ccgeeYpS.s:190    .text.hal_lp_timer_irq_disable:0000000000000000 $a
+     /tmp/ccgeeYpS.s:196    .text.hal_lp_timer_irq_disable:0000000000000000 hal_lp_timer_irq_disable
+     /tmp/ccgeeYpS.s:208    .bss.thread_running:0000000000000000 thread_running
+     /tmp/ccgeeYpS.s:209    .bss.thread_running:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__errno_location
+nanosleep
+printf
+fflush
+stdout
+pthread_create
+pthread_kill

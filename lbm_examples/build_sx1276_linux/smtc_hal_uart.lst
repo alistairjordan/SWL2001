@@ -1,0 +1,214 @@
+ARM GAS  /tmp/ccGZfb0F.s 			page 1
+
+
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 23, 1
+   4              		.eabi_attribute 24, 1
+   5              		.eabi_attribute 25, 1
+   6              		.eabi_attribute 26, 2
+   7              		.eabi_attribute 30, 4
+   8              		.eabi_attribute 34, 1
+   9              		.eabi_attribute 18, 4
+  10              		.file	"smtc_hal_uart.c"
+  11              		.text
+  12              		.section	.text.hw_modem_uart_init,"ax",%progbits
+  13              		.align	2
+  14              		.global	hw_modem_uart_init
+  15              		.arch armv7-a
+  16              		.syntax unified
+  17              		.arm
+  18              		.fpu neon
+  20              	hw_modem_uart_init:
+  21              		@ args = 0, pretend = 0, frame = 0
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23              		@ link register save eliminated.
+  24 0000 00009FE5 		ldr	r0, .L2
+  25 0004 FEFFFFEA 		b	printf
+  26              	.L3:
+  27              		.align	2
+  28              	.L2:
+  29 0008 00000000 		.word	.LC0
+  31              		.section	.text.hw_modem_uart_deinit,"ax",%progbits
+  32              		.align	2
+  33              		.global	hw_modem_uart_deinit
+  34              		.syntax unified
+  35              		.arm
+  36              		.fpu neon
+  38              	hw_modem_uart_deinit:
+  39              		@ args = 0, pretend = 0, frame = 0
+  40              		@ frame_needed = 0, uses_anonymous_args = 0
+  41              		@ link register save eliminated.
+  42 0000 00009FE5 		ldr	r0, .L5
+  43 0004 FEFFFFEA 		b	printf
+  44              	.L6:
+  45              		.align	2
+  46              	.L5:
+  47 0008 00000000 		.word	.LC1
+  49              		.section	.text.trace_uart_init,"ax",%progbits
+  50              		.align	2
+  51              		.global	trace_uart_init
+  52              		.syntax unified
+  53              		.arm
+  54              		.fpu neon
+  56              	trace_uart_init:
+  57              		@ args = 0, pretend = 0, frame = 0
+  58              		@ frame_needed = 0, uses_anonymous_args = 0
+  59              		@ link register save eliminated.
+  60 0000 1EFF2FE1 		bx	lr
+  62              		.section	.text.trace_uart_deinit,"ax",%progbits
+  63              		.align	2
+ARM GAS  /tmp/ccGZfb0F.s 			page 2
+
+
+  64              		.global	trace_uart_deinit
+  65              		.syntax unified
+  66              		.arm
+  67              		.fpu neon
+  69              	trace_uart_deinit:
+  70              		@ args = 0, pretend = 0, frame = 0
+  71              		@ frame_needed = 0, uses_anonymous_args = 0
+  72              		@ link register save eliminated.
+  73 0000 1EFF2FE1 		bx	lr
+  75              		.section	.text.hw_modem_uart_dma_start_rx,"ax",%progbits
+  76              		.align	2
+  77              		.global	hw_modem_uart_dma_start_rx
+  78              		.syntax unified
+  79              		.arm
+  80              		.fpu neon
+  82              	hw_modem_uart_dma_start_rx:
+  83              		@ args = 0, pretend = 0, frame = 0
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+  85              		@ link register save eliminated.
+  86 0000 00009FE5 		ldr	r0, .L10
+  87 0004 FEFFFFEA 		b	printf
+  88              	.L11:
+  89              		.align	2
+  90              	.L10:
+  91 0008 00000000 		.word	.LC2
+  93              		.section	.text.hw_modem_uart_dma_stop_rx,"ax",%progbits
+  94              		.align	2
+  95              		.global	hw_modem_uart_dma_stop_rx
+  96              		.syntax unified
+  97              		.arm
+  98              		.fpu neon
+ 100              	hw_modem_uart_dma_stop_rx:
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 104 0000 00009FE5 		ldr	r0, .L13
+ 105 0004 FEFFFFEA 		b	printf
+ 106              	.L14:
+ 107              		.align	2
+ 108              	.L13:
+ 109 0008 00000000 		.word	.LC3
+ 111              		.section	.text.hw_modem_uart_tx,"ax",%progbits
+ 112              		.align	2
+ 113              		.global	hw_modem_uart_tx
+ 114              		.syntax unified
+ 115              		.arm
+ 116              		.fpu neon
+ 118              	hw_modem_uart_tx:
+ 119              		@ args = 0, pretend = 0, frame = 0
+ 120              		@ frame_needed = 0, uses_anonymous_args = 0
+ 121              		@ link register save eliminated.
+ 122 0000 00009FE5 		ldr	r0, .L16
+ 123 0004 FEFFFFEA 		b	printf
+ 124              	.L17:
+ 125              		.align	2
+ 126              	.L16:
+ 127 0008 00000000 		.word	.LC4
+ARM GAS  /tmp/ccGZfb0F.s 			page 3
+
+
+ 129              		.section	.text.trace_uart_tx,"ax",%progbits
+ 130              		.align	2
+ 131              		.global	trace_uart_tx
+ 132              		.syntax unified
+ 133              		.arm
+ 134              		.fpu neon
+ 136              	trace_uart_tx:
+ 137              		@ args = 0, pretend = 0, frame = 0
+ 138              		@ frame_needed = 0, uses_anonymous_args = 0
+ 139              		@ link register save eliminated.
+ 140 0000 0020A0E1 		mov	r2, r0
+ 141 0004 00009FE5 		ldr	r0, .L19
+ 142 0008 FEFFFFEA 		b	printf
+ 143              	.L20:
+ 144              		.align	2
+ 145              	.L19:
+ 146 000c 00000000 		.word	.LC5
+ 148              		.section	.rodata.hw_modem_uart_deinit.str1.1,"aMS",%progbits,1
+ 149              	.LC1:
+ 150 0000 4552524F 		.ascii	"ERROR: hw_modem_uart_deinit\012\000"
+ 150      523A2068 
+ 150      775F6D6F 
+ 150      64656D5F 
+ 150      75617274 
+ 151              		.section	.rodata.hw_modem_uart_dma_start_rx.str1.1,"aMS",%progbits,1
+ 152              	.LC2:
+ 153 0000 4552524F 		.ascii	"ERROR: hw_modem_uart_dma_start_rx\012\000"
+ 153      523A2068 
+ 153      775F6D6F 
+ 153      64656D5F 
+ 153      75617274 
+ 154              		.section	.rodata.hw_modem_uart_dma_stop_rx.str1.1,"aMS",%progbits,1
+ 155              	.LC3:
+ 156 0000 4552524F 		.ascii	"ERROR: hw_modem_uart_dma_stop_rx\012\000"
+ 156      523A2068 
+ 156      775F6D6F 
+ 156      64656D5F 
+ 156      75617274 
+ 157              		.section	.rodata.hw_modem_uart_init.str1.1,"aMS",%progbits,1
+ 158              	.LC0:
+ 159 0000 4552524F 		.ascii	"ERROR: hw_modem_uart_init\012\000"
+ 159      523A2068 
+ 159      775F6D6F 
+ 159      64656D5F 
+ 159      75617274 
+ 160              		.section	.rodata.hw_modem_uart_tx.str1.1,"aMS",%progbits,1
+ 161              	.LC4:
+ 162 0000 4552524F 		.ascii	"ERROR: hw_modem_uart_tx\012\000"
+ 162      523A2068 
+ 162      775F6D6F 
+ 162      64656D5F 
+ 162      75617274 
+ 163              		.section	.rodata.trace_uart_tx.str1.1,"aMS",%progbits,1
+ 164              	.LC5:
+ 165 0000 252E2A73 		.ascii	"%.*s\000"
+ 165      00
+ 166              		.ident	"GCC: (crosstool-NG 1.24.0) 8.3.0"
+ARM GAS  /tmp/ccGZfb0F.s 			page 4
+
+
+ 167              		.section	.note.GNU-stack,"",%progbits
+ARM GAS  /tmp/ccGZfb0F.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 smtc_hal_uart.c
+     /tmp/ccGZfb0F.s:13     .text.hw_modem_uart_init:0000000000000000 $a
+     /tmp/ccGZfb0F.s:20     .text.hw_modem_uart_init:0000000000000000 hw_modem_uart_init
+     /tmp/ccGZfb0F.s:29     .text.hw_modem_uart_init:0000000000000008 $d
+     /tmp/ccGZfb0F.s:32     .text.hw_modem_uart_deinit:0000000000000000 $a
+     /tmp/ccGZfb0F.s:38     .text.hw_modem_uart_deinit:0000000000000000 hw_modem_uart_deinit
+     /tmp/ccGZfb0F.s:47     .text.hw_modem_uart_deinit:0000000000000008 $d
+     /tmp/ccGZfb0F.s:50     .text.trace_uart_init:0000000000000000 $a
+     /tmp/ccGZfb0F.s:56     .text.trace_uart_init:0000000000000000 trace_uart_init
+     /tmp/ccGZfb0F.s:63     .text.trace_uart_deinit:0000000000000000 $a
+     /tmp/ccGZfb0F.s:69     .text.trace_uart_deinit:0000000000000000 trace_uart_deinit
+     /tmp/ccGZfb0F.s:76     .text.hw_modem_uart_dma_start_rx:0000000000000000 $a
+     /tmp/ccGZfb0F.s:82     .text.hw_modem_uart_dma_start_rx:0000000000000000 hw_modem_uart_dma_start_rx
+     /tmp/ccGZfb0F.s:91     .text.hw_modem_uart_dma_start_rx:0000000000000008 $d
+     /tmp/ccGZfb0F.s:94     .text.hw_modem_uart_dma_stop_rx:0000000000000000 $a
+     /tmp/ccGZfb0F.s:100    .text.hw_modem_uart_dma_stop_rx:0000000000000000 hw_modem_uart_dma_stop_rx
+     /tmp/ccGZfb0F.s:109    .text.hw_modem_uart_dma_stop_rx:0000000000000008 $d
+     /tmp/ccGZfb0F.s:112    .text.hw_modem_uart_tx:0000000000000000 $a
+     /tmp/ccGZfb0F.s:118    .text.hw_modem_uart_tx:0000000000000000 hw_modem_uart_tx
+     /tmp/ccGZfb0F.s:127    .text.hw_modem_uart_tx:0000000000000008 $d
+     /tmp/ccGZfb0F.s:130    .text.trace_uart_tx:0000000000000000 $a
+     /tmp/ccGZfb0F.s:136    .text.trace_uart_tx:0000000000000000 trace_uart_tx
+     /tmp/ccGZfb0F.s:146    .text.trace_uart_tx:000000000000000c $d
+
+UNDEFINED SYMBOLS
+printf

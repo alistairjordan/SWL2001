@@ -1,0 +1,8 @@
+smtc_hal_uart.c:82:6:hw_modem_uart_init	0	static
+smtc_hal_uart.c:88:6:hw_modem_uart_deinit	0	static
+smtc_hal_uart.c:94:6:trace_uart_init	0	static
+smtc_hal_uart.c:99:6:trace_uart_deinit	0	static
+smtc_hal_uart.c:104:6:hw_modem_uart_dma_start_rx	0	static
+smtc_hal_uart.c:110:6:hw_modem_uart_dma_stop_rx	0	static
+smtc_hal_uart.c:116:6:hw_modem_uart_tx	0	static
+smtc_hal_uart.c:122:6:trace_uart_tx	0	static
